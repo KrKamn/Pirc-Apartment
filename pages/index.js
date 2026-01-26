@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Card from "../components/Card";
-import "../styles/globals.css";
 
 export default function Home() {
   return (

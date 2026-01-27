@@ -5,10 +5,10 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>Apartma Sončni Razgled</title>
+        <title>KrKamn apartma</title>
       </Head>
 
-      <h1>Apartma Sončni Razgled</h1>
+      <h1>KrKamn apartma</h1>
       <p>Apartma za do 5 oseb v bližini Ljubljane.</p>
 
       <h2>Rezervacija</h2>

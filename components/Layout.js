@@ -1,16 +1,25 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+function getHourInLjubljana() {
+  const now = new Date();
+  // dobi uro v Europe/Ljubljana ne glede na uporabnikovo lokacijo
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Ljubljana",
+    hour: "2-digit",
+    hour12: false,
+  }).formatToParts(now);
+
+  const hour = Number(parts.find((p) => p.type === "hour")?.value ?? "12");
+  return hour;
+}
+
 export default function Layout({ children }) {
   const [mode, setMode] = useState("day");
 
   useEffect(() => {
-    const hour = new Date().getHours();
-    if (hour >= 6 && hour < 20) {
-      setMode("day");
-    } else {
-      setMode("night");
-    }
+    const hour = getHourInLjubljana();
+    setMode(hour >= 6 && hour < 20 ? "day" : "night");
   }, []);
 
   return (
@@ -23,9 +32,7 @@ export default function Layout({ children }) {
         <Link href="/privacy">GDPR</Link>
       </nav>
 
-      <main className="content">
-        {children}
-      </main>
+      <main className="content">{children}</main>
     </div>
   );
 }

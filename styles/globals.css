@@ -3,12 +3,13 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/* ENO samo ozadje + cache-buster (v=2) */
 .background {
   min-height: 100vh;
   background-color: #111;
   background-image:
     linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-    url("https://images.unsplash.com/photo-1549640376-cc95a4c0e8f2?auto=format&fit=crop&w=2400&q=80");
+    url("https://images.unsplash.com/photo-1549640376-cc95a4c0e8f2?auto=format&fit=crop&w=2400&q=80&v=2");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

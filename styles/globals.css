@@ -5,17 +5,10 @@ body {
 
 .background {
   min-height: 100vh;
-
-  /* fallback, če slika ne pride */
   background-color: #111;
-
-  /* poskusi 3 različne URL-je (brskalnik vzame prvega, ki dela) */
   background-image:
     linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-    url("https://images.unsplash.com/photo-1549640376-cc95a4c0e8f2?auto=format&fit=crop&w=2400&q=80"),
-    url("https://images.unsplash.com/photo-1526481280691-3d3a07a98b1b?auto=format&fit=crop&w=2400&q=80"),
-    url("https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=2400&q=80");
-
+    url("https://images.unsplash.com/photo-1549640376-cc95a4c0e8f2?auto=format&fit=crop&w=2400&q=80");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -3,16 +3,27 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* ENO samo ozadje + cache-buster (v=2) */
+/* privzeto (fallback) */
 .background {
   min-height: 100vh;
   background-color: #111;
-  background-image:
-    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-    url("https://images.unsplash.com/photo-1549640376-cc95a4c0e8f2?auto=format&fit=crop&w=2400&q=80&v=2");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+/* DNEVNO ozadje */
+.background.day {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+    url("https://upload.wikimedia.org/wikipedia/commons/4/4f/Ljubljana_castle_-_panoramio.jpg");
+}
+
+/* NOČNO ozadje */
+.background.night {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("https://upload.wikimedia.org/wikipedia/commons/6/66/Triple_Bridge_and_Ljubljana_by_night_%2848701521446%29.jpg");
 }
 
 .nav {

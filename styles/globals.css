@@ -5,9 +5,14 @@ body {
 
 .background {
   min-height: 100vh;
-  background-image: url("https://images.unsplash.com/photo-1505761671935-60b3a7427bad");
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.35)
+    ),
+    url("https://images.unsplash.com/photo-1549640376-cc95a4c0e8f2");
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
 }
 
 .nav {

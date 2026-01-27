@@ -1,18 +1,32 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
 }
 
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
+.background {
+  min-height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-1505761671935-60b3a7427bad");
+  background-size: cover;
+  background-position: center;
 }
 
-.card {
-  background: white;
-  padding: 16px;
-  margin: 20px 0;
-  border-radius: 8px;
+.nav {
+  background: rgba(0,0,0,0.7);
+  padding: 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.content {
+  background: rgba(255,255,255,0.95);
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 10px;
 }

@@ -30,6 +30,13 @@ body {
 
 .background {
   min-height: 100vh;
-  background: blue !important;
-  border: 10px solid lime !important;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.35)
+    ),
+    url("https://images.unsplash.com/photo-1549640376-cc95a4c0e8f2?auto=format&fit=crop&w=2400&q=80");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
+

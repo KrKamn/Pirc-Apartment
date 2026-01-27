@@ -5,7 +5,11 @@ body {
 
 .background {
   min-height: 100vh;
-  background: black !important;
+  background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("https://source.unsplash.com/2400x1600/?ljubljana,castle");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .nav {

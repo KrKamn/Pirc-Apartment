@@ -1,8 +1,4 @@
 body {
-  background: red !important;
-}
-
-body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
@@ -30,4 +26,10 @@ body {
   margin: 40px auto;
   padding: 30px;
   border-radius: 10px;
+}
+
+.background {
+  min-height: 100vh;
+  background: blue !important;
+  border: 10px solid lime !important;
 }

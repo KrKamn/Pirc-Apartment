@@ -3,19 +3,17 @@ import { useEffect, useState } from "react";
 
 function getHourInLjubljana() {
   const now = new Date();
-  // dobi uro v Europe/Ljubljana ne glede na uporabnikovo lokacijo
   const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Europe/Ljubljana",
     hour: "2-digit",
     hour12: false,
   }).formatToParts(now);
-
-  const hour = Number(parts.find((p) => p.type === "hour")?.value ?? "12");
-  return hour;
+  return Number(parts.find((p) => p.type === "hour")?.value ?? "12");
 }
 
 export default function Layout({ children }) {
   const [mode, setMode] = useState("day");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const hour = getHourInLjubljana();
@@ -24,15 +22,31 @@ export default function Layout({ children }) {
 
   return (
     <div className={`background ${mode}`}>
-      <nav className="nav">
-        <Link href="/">Domov</Link>
-        <Link href="/gallery">Galerija</Link>
-        <Link href="/availability">Razpoložljivost</Link>
-        <Link href="/ljubljana">Ljubljana</Link>
-        <Link href="/contact">Kontakt</Link>
-        <Link href="/privacy">GDPR</Link>
-        {/* menu updated */}
-      </nav>
+      <header className="header">
+        <div className="brandRow">
+          <Link href="/" className="brand">
+            Pirc Apartment
+          </Link>
+
+          <button
+            className="menuBtn"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Meni"
+            aria-expanded={menuOpen}
+          >
+            ☰
+          </button>
+        </div>
+
+        <nav className={`nav ${menuOpen ? "open" : ""}`}>
+          <Link href="/" onClick={() => setMenuOpen(false)}>Domov</Link>
+          <Link href="/gallery" onClick={() => setMenuOpen(false)}>Galerija</Link>
+          <Link href="/availability" onClick={() => setMenuOpen(false)}>Razpoložljivost</Link>
+          <Link href="/ljubljana" onClick={() => setMenuOpen(false)}>Ljubljana</Link>
+          <Link href="/contact" onClick={() => setMenuOpen(false)}>Kontakt</Link>
+          <Link href="/privacy" onClick={() => setMenuOpen(false)}>GDPR</Link>
+        </nav>
+      </header>
 
       <main className="content">{children}</main>
     </div>

@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* privzeto (fallback) */
+/* Ozadje dan/noč */
 .background {
   min-height: 100vh;
   background-color: #111;
@@ -12,37 +12,114 @@ body {
   background-repeat: no-repeat;
 }
 
-/* DNEVNO ozadje */
 .background.day {
   background-image:
     linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
     url("https://upload.wikimedia.org/wikipedia/commons/4/4f/Ljubljana_castle_-_panoramio.jpg");
 }
 
-/* NOČNO ozadje */
 .background.night {
   background-image:
     linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
     url("https://upload.wikimedia.org/wikipedia/commons/6/66/Triple_Bridge_and_Ljubljana_by_night_%2848701521446%29.jpg");
 }
 
-.nav {
-  background: rgba(0,0,0,0.7);
-  padding: 15px;
+/* Header + meni */
+.header {
+  background: rgba(0,0,0,0.70);
+  padding: 12px 14px;
+}
+
+.brandRow {
   display: flex;
-  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.menuBtn {
+  border: 0;
+  background: rgba(255,255,255,0.12);
+  color: white;
+  font-size: 22px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* nav: mobile default hidden, toggle open */
+.nav {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.nav.open {
+  display: flex;
 }
 
 .nav a {
   color: white;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 700;
+  padding: 10px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
 }
 
+/* Content card */
 .content {
-  background: rgba(255,255,255,0.95);
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 30px;
-  border-radius: 10px;
+  background: rgba(255,255,255,0.96);
+  margin: 14px;
+  padding: 16px;
+  border-radius: 14px;
+  max-width: 980px;
+}
+
+/* Tipografija */
+h1 { font-size: 26px; margin: 10px 0 8px; }
+h2 { font-size: 20px; margin: 18px 0 10px; }
+p, li { font-size: 16px; line-height: 1.55; }
+
+/* Desktop izboljšave */
+@media (min-width: 900px) {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+  }
+
+  .menuBtn {
+    display: none;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+    margin-top: 0;
+  }
+
+  .nav a {
+    background: transparent;
+    padding: 6px 8px;
+  }
+
+  .content {
+    margin: 28px auto;
+    padding: 28px;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
 }

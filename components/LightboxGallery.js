@@ -1,8 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function LightboxGallery({ images, alts }) {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(0);
+
+  // swipe state
+  const startXRef = useRef(null);
+  const lastXRef = useRef(null);
+  const draggingRef = useRef(false);
 
   const safeAlts = useMemo(() => {
     if (alts && alts.length === images.length) return alts;
@@ -31,6 +36,71 @@ export default function LightboxGallery({ images, alts }) {
   const openAt = (i) => {
     setIdx(i);
     setOpen(true);
+  };
+
+  // ----- Swipe handlers (touch + pointer) -----
+  const SWIPE_THRESHOLD_PX = 60;
+
+  const onTouchStart = (e) => {
+    if (!e.touches?.length) return;
+    draggingRef.current = true;
+    startXRef.current = e.touches[0].clientX;
+    lastXRef.current = startXRef.current;
+  };
+
+  const onTouchMove = (e) => {
+    if (!draggingRef.current || !e.touches?.length) return;
+    lastXRef.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = () => {
+    if (!draggingRef.current) return;
+    draggingRef.current = false;
+
+    const startX = startXRef.current;
+    const endX = lastXRef.current;
+    startXRef.current = null;
+    lastXRef.current = null;
+
+    if (startX == null || endX == null) return;
+
+    const dx = endX - startX;
+    if (Math.abs(dx) < SWIPE_THRESHOLD_PX) return;
+
+    if (dx < 0) next(); // swipe left -> next
+    else prev(); // swipe right -> prev
+  };
+
+  // Pointer events (deluje tudi na nekaterih mobilnih brskalnikih)
+  const onPointerDown = (e) => {
+    // samo primarni prst / gumb
+    if (e.pointerType === "mouse" && e.buttons !== 1) return;
+    draggingRef.current = true;
+    startXRef.current = e.clientX;
+    lastXRef.current = e.clientX;
+  };
+
+  const onPointerMove = (e) => {
+    if (!draggingRef.current) return;
+    lastXRef.current = e.clientX;
+  };
+
+  const onPointerUp = () => {
+    if (!draggingRef.current) return;
+    draggingRef.current = false;
+
+    const startX = startXRef.current;
+    const endX = lastXRef.current;
+    startXRef.current = null;
+    lastXRef.current = null;
+
+    if (startX == null || endX == null) return;
+
+    const dx = endX - startX;
+    if (Math.abs(dx) < SWIPE_THRESHOLD_PX) return;
+
+    if (dx < 0) next();
+    else prev();
   };
 
   return (
@@ -98,6 +168,7 @@ export default function LightboxGallery({ images, alts }) {
               maxHeight: "85vh",
               display: "grid",
               gap: 10,
+              touchAction: "pan-y", // omogoči vertikalni scroll, horizontalni swipe pa zaznamo mi
             }}
           >
             {/* Top bar */}
@@ -129,8 +200,15 @@ export default function LightboxGallery({ images, alts }) {
               </button>
             </div>
 
-            {/* Image */}
+            {/* Image area (swipe target) */}
             <div
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+              onPointerCancel={onPointerUp}
               style={{
                 background: "rgba(255,255,255,0.06)",
                 borderRadius: 14,
@@ -139,11 +217,13 @@ export default function LightboxGallery({ images, alts }) {
                 alignItems: "center",
                 justifyContent: "center",
                 maxHeight: "80vh",
+                userSelect: "none",
               }}
             >
               <img
                 src={images[idx]}
                 alt={safeAlts[idx]}
+                draggable={false}
                 style={{
                   width: "100%",
                   height: "auto",
@@ -185,7 +265,7 @@ export default function LightboxGallery({ images, alts }) {
             </div>
 
             <div style={{ color: "white", fontSize: 12, opacity: 0.8, textAlign: "center" }}>
-              Tipke: ← → za listanje, ESC za zaprtje
+              Telefon: swipe levo/desno · Tipke: ← → · ESC zapre
             </div>
           </div>
         </div>

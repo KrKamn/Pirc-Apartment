@@ -29,15 +29,24 @@ export default function GalleryPage() {
   return (
     <Layout>
       <Head>
-        <title>{t.galleryTitle} – {t.title}</title>
-      </Head>
+  <title>Galerija | Pirc Apartment Ljubljana</title>
+  <meta
+    name="description"
+    content="Galerija fotografij Pirc Apartment v Ljubljani."
+  />
+</Head>
 
       <h1>{t.galleryTitle}</h1>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
         {images.map((src) => (
           <a key={src} href={src} target="_blank" rel="noreferrer">
-            <img src={src} alt={t.galleryTitle} style={{ width: "100%", borderRadius: 12, display: "block" }} />
+            <img
+  src={src}
+  alt="Pirc Apartment Ljubljana – apartma za do 5 oseb"
+  loading="lazy"
+  style={{ width: "100%", borderRadius: 12, display: "block" }}
+/>
           </a>
         ))}
       </div>

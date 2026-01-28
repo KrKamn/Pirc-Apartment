@@ -5,11 +5,15 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>KrKamn apartma</title>
-      </Head>
+  <title>Pirc Apartment | Ljubljana</title>
+  <meta
+    name="description"
+    content="Pirc Apartment – apartma za do 5 oseb v Ljubljani. Udobna nastanitev za pare in družine."
+  />
+</Head>
 
-      <h1>KrKamn apartma</h1>
-      <p>Apartma za do 5 oseb v bližini Ljubljane.</p>
+      <h1>Pirc Apartment</h1>
+      <p>Apartma za do 5 oseb v bližini centra Ljubljane.</p>
 
       <h2>Rezervacija</h2>
       <p>

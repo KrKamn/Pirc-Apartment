@@ -31,6 +31,7 @@ export default function Layout({ children }) {
         <Link href="/ljubljana">Ljubljana</Link>
         <Link href="/contact">Kontakt</Link>
         <Link href="/privacy">GDPR</Link>
+        {/* menu updated */}
       </nav>
 
       <main className="content">{children}</main>

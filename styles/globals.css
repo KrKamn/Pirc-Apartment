@@ -1,12 +1,13 @@
+/* ===== RESET & BASE ===== */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #111;
 }
 
-/* Ozadje dan/noč */
+/* ===== BACKGROUND DAY / NIGHT ===== */
 .background {
   min-height: 100vh;
-  background-color: #111;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -24,9 +25,9 @@ body {
     url("https://upload.wikimedia.org/wikipedia/commons/6/66/Triple_Bridge_and_Ljubljana_by_night_%2848701521446%29.jpg");
 }
 
-/* Header + meni */
+/* ===== HEADER ===== */
 .header {
-  background: rgba(0,0,0,0.70);
+  background: rgba(0,0,0,0.7);
   padding: 12px 14px;
 }
 
@@ -44,23 +45,14 @@ body {
   font-size: 18px;
 }
 
-.menuBtn {
-  border: 0;
-  background: rgba(255,255,255,0.12);
-  color: white;
-  font-size: 22px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
+/* ===== HEADER ACTIONS ===== */
 .headerActions {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* Book now gumb */
+/* ===== BOOK NOW BUTTON ===== */
 .bookNow {
   display: inline-block;
   text-decoration: none;
@@ -75,6 +67,7 @@ body {
   background: #295f43;
 }
 
+/* ===== LANGUAGE SWITCH ===== */
 .langSwitch {
   display: flex;
   gap: 6px;
@@ -95,15 +88,18 @@ body {
   font-weight: 700;
 }
 
-/* na desktopu malo bolj “premium” */
-@media (min-width: 900px) {
-  .bookNow {
-    padding: 10px 14px;
-    border-radius: 14px;
-  }
+/* ===== HAMBURGER BUTTON ===== */
+.menuBtn {
+  border: 0;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  font-size: 22px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-/* nav: mobile default hidden, toggle open */
+/* ===== NAVIGATION ===== */
 .nav {
   display: none;
   flex-direction: column;
@@ -124,7 +120,7 @@ body {
   background: rgba(255,255,255,0.08);
 }
 
-/* Content card */
+/* ===== CONTENT CARD ===== */
 .content {
   background: rgba(255,255,255,0.96);
   margin: 14px;
@@ -133,18 +129,33 @@ body {
   max-width: 980px;
 }
 
-/* Tipografija */
-h1 { font-size: 26px; margin: 10px 0 8px; }
-h2 { font-size: 20px; margin: 18px 0 10px; }
-p, li { font-size: 16px; line-height: 1.55; }
+/* ===== TYPOGRAPHY ===== */
+h1 {
+  font-size: 26px;
+  margin: 10px 0 8px;
+}
 
-/* Desktop izboljšave */
+h2 {
+  font-size: 20px;
+  margin: 18px 0 10px;
+}
+
+p, li {
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* ===== DESKTOP ===== */
 @media (min-width: 900px) {
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 14px 18px;
+  }
+
+  .brand {
+    font-size: 20px;
   }
 
   .menuBtn {
@@ -168,7 +179,8 @@ p, li { font-size: 16px; line-height: 1.55; }
     padding: 28px;
   }
 
-  .brand {
-    font-size: 20px;
+  .bookNow {
+    padding: 10px 14px;
+    border-radius: 14px;
   }
 }

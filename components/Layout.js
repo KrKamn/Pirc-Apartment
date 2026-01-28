@@ -28,14 +28,20 @@ export default function Layout({ children }) {
             Pirc Apartment
           </Link>
 
-          <button
-            className="menuBtn"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Meni"
-            aria-expanded={menuOpen}
-          >
-            ☰
-          </button>
+          <div className="headerActions">
+            <Link href="/availability" className="bookNow">
+              Book now
+            </Link>
+
+            <button
+              className="menuBtn"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Meni"
+              aria-expanded={menuOpen}
+            >
+              ☰
+            </button>
+          </div>
         </div>
 
         <nav className={`nav ${menuOpen ? "open" : ""}`}>

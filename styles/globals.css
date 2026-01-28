@@ -54,6 +54,31 @@ body {
   cursor: pointer;
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Book now gumb */
+.bookNow {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 800;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: #ffcc00;
+  color: #111;
+}
+
+/* na desktopu malo bolj “premium” */
+@media (min-width: 900px) {
+  .bookNow {
+    padding: 10px 14px;
+    border-radius: 14px;
+  }
+}
+
 /* nav: mobile default hidden, toggle open */
 .nav {
   display: none;

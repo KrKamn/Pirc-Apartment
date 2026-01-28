@@ -26,6 +26,7 @@ export default function Layout({ children }) {
     <div className={`background ${mode}`}>
       <nav className="nav">
         <Link href="/">Domov</Link>
+        <Link href="/gallery">Galerija</Link>
         <Link href="/availability">Razpoložljivost</Link>
         <Link href="/ljubljana">Ljubljana</Link>
         <Link href="/contact">Kontakt</Link>

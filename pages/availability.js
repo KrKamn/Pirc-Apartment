@@ -1,3 +1,4 @@
+import { CONTACT } from "../lib/config";
 import Layout from "../components/Layout";
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
@@ -85,7 +86,7 @@ export default function Availability() {
       `${t.availabilityIntro}\n\nCheck-in: ${checkIn || "-"}\nCheck-out: ${checkOut || "-"}`
     );
     // zamenjaj email po potrebi
-    return `mailto:info@apartma.si?subject=${subject}&body=${body}`;
+    return `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
   }, [t, checkIn, checkOut]);
 
   // TODO: zamenjaj s pravim URL-jem tvoje Booking nastanitve

@@ -1,3 +1,4 @@
+import { CONTACT } from "../lib/config";
 import Layout from "../components/Layout";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -16,8 +17,12 @@ export default function Contact() {
 
       <h1>{t.contactTitle}</h1>
 
-      <p><strong>{t.contactEmail}:</strong> info@apartma.si</p>
-      <p><strong>{t.contactPhone}:</strong> +386 40 123 456</p>
+      <p><strong>{t.contactEmail}:</strong> <a href={`mailto:${CONTACT.email}`}>
+  {CONTACT.email}
+</a></p>
+      <p><strong>{t.contactPhone}:</strong> <a href={`tel:${CONTACT.phone}`}>
+  {CONTACT.phone}
+</a></p>
 
       <h2>{t.contactLocation}</h2>
       <a href="https://maps.google.com/?q=Ljubljana" target="_blank" rel="noreferrer">

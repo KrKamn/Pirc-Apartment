@@ -90,7 +90,9 @@ export default function Availability() {
   }, [t, checkIn, checkOut]);
 
   // TODO: zamenjaj s pravim URL-jem tvoje Booking nastanitve
-  const bookingUrl = "https://www.booking.com";
+  import { BOOKING_URL } from "../lib/config";
+
+const bookingUrl = BOOKING_URL;
 
   return (
     <Layout>

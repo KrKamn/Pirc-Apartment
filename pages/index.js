@@ -1,3 +1,4 @@
+import { BOOKING_URL } from "../lib/config";
 import Layout from "../components/Layout";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -19,9 +20,23 @@ export default function Home() {
 
       <h2>{t.homeBookingTitle}</h2>
       <p>
-        <a href="https://www.booking.com" target="_blank" rel="noreferrer">
-          {t.homeBookingBooking}
-        </a>
+        <a
+  href={BOOKING_URL}
+  target="_blank"
+  rel="noreferrer"
+  style={{
+    display: "inline-block",
+    background: "#2f6f4e",
+    color: "white",
+    padding: "12px 18px",
+    borderRadius: "10px",
+    fontWeight: "bold",
+    textDecoration: "none",
+    marginTop: "10px"
+  }}
+>
+  {t.homeBookingBooking}
+</a>
       </p>
       <p>{t.homeBookingDirect}</p>
     </Layout>

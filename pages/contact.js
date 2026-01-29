@@ -25,9 +25,23 @@ export default function Contact() {
 </a></p>
 
       <h2>{t.contactLocation}</h2>
-      <a href="https://maps.google.com/?q=Ljubljana" target="_blank" rel="noreferrer">
+      <a href={CONTACT.mapsLink} target="_blank" rel="noreferrer">
         {t.contactOpenMaps}
       </a>
+
+<p style={{marginTop:"10px"}}>
+  {CONTACT.address}
+</p>
+
+<div style={{ marginTop: "20px" }}>
+  <iframe
+    src="https://www.google.com/maps?q=Dunajska+cesta+86,+Ljubljana&output=embed"
+    width="100%"
+    height="350"
+    style={{ border: 0, borderRadius: "12px" }}
+    loading="lazy"
+  ></iframe>
+</div>
     </Layout>
   );
 }

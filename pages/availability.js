@@ -1,9 +1,9 @@
-import { CONTACT } from "../lib/config";
 import Layout from "../components/Layout";
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { translations } from "../lib/translations";
+import { CONTACT, BOOKING_URL } from "../lib/config";
 
 function iso(d) {
   const yyyy = d.getFullYear();
@@ -85,28 +85,28 @@ export default function Availability() {
     const body = encodeURIComponent(
       `${t.availabilityIntro}\n\nCheck-in: ${checkIn || "-"}\nCheck-out: ${checkOut || "-"}`
     );
-    // zamenjaj email po potrebi
     return `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
   }, [t, checkIn, checkOut]);
 
-  // TODO: zamenjaj s pravim URL-jem tvoje Booking nastanitve
-  import { BOOKING_URL } from "../lib/config";
-
-const bookingUrl = BOOKING_URL;
+  const bookingUrl = BOOKING_URL;
 
   return (
     <Layout>
       <Head>
-        <title>{t.availabilityTitle} – {t.brand}</title>
+        <title>
+          {t.availabilityTitle} – {t.brand}
+        </title>
         <meta name="description" content={t.availabilityMeta} />
       </Head>
 
       <h1>{t.availabilityTitle}</h1>
       <p>{t.availabilityIntro}</p>
 
-      {loading ? <p>{locale === "de" ? "Laden…" : locale === "en" ? "Loading…" : "Nalagam…"}</p> : null}
+      {loading ? (
+        <p>{locale === "de" ? "Laden…" : locale === "en" ? "Loading…" : "Nalagam…"}</p>
+      ) : null}
 
-      <div style={{ display: "flex", gap: 12, alignItems: "center", margin: "12px 0" }}>
+      <div style={{ display: "flex", gap: 12, alignItems: "center", margin: "12px 0", flexWrap: "wrap" }}>
         <button onClick={prevMonth}>←</button>
         <strong style={{ textTransform: "capitalize" }}>{monthName}</strong>
         <button onClick={nextMonth}>→</button>
@@ -201,7 +201,11 @@ const bookingUrl = BOOKING_URL;
               fontWeight: 700,
             }}
           >
-            {locale === "de" ? "Direkt anfragen (E-Mail)" : locale === "en" ? "Book direct (email)" : "Rezerviraj direktno (email)"}
+            {locale === "de"
+              ? "Direkt anfragen (E-Mail)"
+              : locale === "en"
+              ? "Book direct (email)"
+              : "Rezerviraj direktno (email)"}
           </a>
 
           <a
@@ -218,7 +222,11 @@ const bookingUrl = BOOKING_URL;
               background: "transparent",
             }}
           >
-            {locale === "de" ? "Über Booking.com buchen" : locale === "en" ? "Book on Booking.com" : "Rezerviraj preko Booking.com"}
+            {locale === "de"
+              ? "Über Booking.com buchen"
+              : locale === "en"
+              ? "Book on Booking.com"
+              : "Rezerviraj preko Booking.com"}
           </a>
         </div>
 

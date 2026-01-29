@@ -1,16 +1,21 @@
 import Layout from "../components/Layout";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { translations } from "../lib/translations";
 
 export default function Ljubljana() {
+  const { locale } = useRouter();
+  const t = translations[locale] || translations.si;
+
   return (
     <Layout>
-      <h1>Kaj početi v Ljubljani</h1>
-      <ul>
-        <li>Ljubljanski grad</li>
-        <li>Staro mestno jedro</li>
-        <li>Tivoli park</li>
-        <li>Reka Ljubljanica</li>
-        <li>Izleti na Bled in v Postojno</li>
-      </ul>
+      <Head>
+        <title>{t.navLjubljana} – {t.brand}</title>
+        <meta name="description" content={t.ljubljanaMeta} />
+      </Head>
+
+      <h1>{t.ljubljanaTitle}</h1>
+      <p>{t.ljubljanaText}</p>
     </Layout>
   );
 }

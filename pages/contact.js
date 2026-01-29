@@ -1,20 +1,28 @@
 import Layout from "../components/Layout";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { translations } from "../lib/translations";
 
 export default function Contact() {
+  const { locale } = useRouter();
+  const t = translations[locale] || translations.si;
+
   return (
     <Layout>
-      <h1>Kontakt</h1>
-      <p>Email: info@apartma.si</p>
-      <p>Telefon: +386 40 123 456</p>
+      <Head>
+        <title>{t.contactTitle} – {t.brand}</title>
+        <meta name="description" content={t.contactMeta} />
+      </Head>
 
-      <h2>Lokacija</h2>
-      <iframe
-        src="https://www.google.com/maps?q=Ljubljana&output=embed"
-        width="100%"
-        height="300"
-        style={{ border: 0 }}
-        loading="lazy"
-      ></iframe>
+      <h1>{t.contactTitle}</h1>
+
+      <p><strong>{t.contactEmail}:</strong> info@apartma.si</p>
+      <p><strong>{t.contactPhone}:</strong> +386 40 123 456</p>
+
+      <h2>{t.contactLocation}</h2>
+      <a href="https://maps.google.com/?q=Ljubljana" target="_blank" rel="noreferrer">
+        {t.contactOpenMaps}
+      </a>
     </Layout>
   );
 }

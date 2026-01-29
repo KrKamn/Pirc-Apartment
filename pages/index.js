@@ -1,30 +1,29 @@
 import Layout from "../components/Layout";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { translations } from "../lib/translations";
 
 export default function Home() {
+  const { locale } = useRouter();
+  const t = translations[locale] || translations.si;
+
   return (
     <Layout>
       <Head>
-  <title>Pirc Apartment | Ljubljana</title>
-  <meta
-    name="description"
-    content="Pirc Apartment – apartma za do 5 oseb v Ljubljani. Udobna nastanitev za pare in družine."
-  />
-</Head>
+        <title>{t.homeTitle}</title>
+        <meta name="description" content={t.homeSubtitle} />
+      </Head>
 
-      <h1>Pirc Apartment</h1>
-      <p>Apartma za do 5 oseb v bližini centra Ljubljane.</p>
+      <h1>{t.homeTitle}</h1>
+      <p>{t.homeSubtitle}</p>
 
-      <h2>Rezervacija</h2>
+      <h2>{t.homeBookingTitle}</h2>
       <p>
-        <a href="https://www.booking.com" target="_blank">
-          Rezerviraj preko Booking.com
+        <a href="https://www.booking.com" target="_blank" rel="noreferrer">
+          {t.homeBookingBooking}
         </a>
       </p>
-      <p>
-        Ali pišite direktno za ugodnejšo ceno.
-      </p>
+      <p>{t.homeBookingDirect}</p>
     </Layout>
   );
 }
-

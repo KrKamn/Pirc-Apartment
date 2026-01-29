@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { translations } from "../lib/translations";
 
 function getHourInLjubljana() {
   const now = new Date();
@@ -19,6 +20,7 @@ export default function Layout({ children }) {
 
   const router = useRouter();
   const { locale, asPath } = router;
+  const t = translations[locale] || translations.si;
 
   useEffect(() => {
     const hour = getHourInLjubljana();
@@ -35,7 +37,7 @@ export default function Layout({ children }) {
       <header className="header">
         <div className="brandRow">
           <Link href="/" className="brand" onClick={() => setMenuOpen(false)}>
-            Pirc Apartment
+            {t.brand}
           </Link>
 
           <div className="headerActions">
@@ -44,7 +46,7 @@ export default function Layout({ children }) {
               className="bookNow"
               onClick={() => setMenuOpen(false)}
             >
-              Book now
+              {t.bookNow}
             </Link>
 
             <div className="langSwitch" aria-label="Language switch">
@@ -84,22 +86,22 @@ export default function Layout({ children }) {
 
         <nav className={`nav ${menuOpen ? "open" : ""}`}>
           <Link href="/" onClick={() => setMenuOpen(false)}>
-            Domov
+            {t.navHome}
           </Link>
           <Link href="/gallery" onClick={() => setMenuOpen(false)}>
-            Galerija
+            {t.navGallery}
           </Link>
           <Link href="/availability" onClick={() => setMenuOpen(false)}>
-            Razpoložljivost
+            {t.navAvailability}
           </Link>
           <Link href="/ljubljana" onClick={() => setMenuOpen(false)}>
-            Ljubljana
+            {t.navLjubljana}
           </Link>
           <Link href="/contact" onClick={() => setMenuOpen(false)}>
-            Kontakt
+            {t.navContact}
           </Link>
           <Link href="/privacy" onClick={() => setMenuOpen(false)}>
-            GDPR
+            {t.navPrivacy}
           </Link>
         </nav>
       </header>

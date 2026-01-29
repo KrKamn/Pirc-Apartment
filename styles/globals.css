@@ -184,3 +184,29 @@ p, li {
     border-radius: 14px;
   }
 }
+/* Floating CALL button (mobile only) */
+.callFab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 24px;
+  background: #2f6f4e;
+  color: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  z-index: 9999;
+}
+
+/* hide on desktop */
+@media (min-width: 900px) {
+  .callFab {
+    display: none;
+  }
+}
+

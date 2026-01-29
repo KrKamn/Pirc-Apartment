@@ -1,3 +1,4 @@
+import { CONTACT } from "../lib/config";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -107,6 +108,13 @@ export default function Layout({ children }) {
       </header>
 
       <main className="content">{children}</main>
+<a
+  href={`tel:${CONTACT.phone}`}
+  className="callFab"
+  aria-label="Call"
+>
+  📞
+</a>
     </div>
   );
 }

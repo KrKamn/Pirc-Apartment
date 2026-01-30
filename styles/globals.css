@@ -38,11 +38,27 @@ body {
   gap: 12px;
 }
 
+/* LOGO kot home gumb (Link) */
 .brand {
-  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
-  font-weight: 800;
-  font-size: 18px;
+  line-height: 0; /* prepreči baseline zamik */
+  padding: 2px 0;
+}
+
+/* SVG logo v brand linku */
+.brand img {
+  display: block;
+  width: auto;
+  height: 38px;      /* mobile višina */
+  filter: invert(1); /* header je temen, logo črn -> invert v belega */
+  opacity: 0.95;
+}
+
+.brand:hover img {
+  opacity: 0.85;
 }
 
 /* ===== HEADER ACTIONS ===== */
@@ -99,7 +115,7 @@ body {
   cursor: pointer;
 }
 
-/* ===== NAVIGATION ===== */
+/* ===== NAVIGATION (mobile) ===== */
 .nav {
   display: none;
   flex-direction: column;
@@ -147,26 +163,36 @@ p, li {
 
 /* ===== DESKTOP ===== */
 @media (min-width: 900px) {
+  /* Header ostane “širok”, vsebina pa center */
   .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 14px 18px;
   }
 
-  .brand {
-    font-size: 20px;
+  /* brandRow naj zasede širino in poravna elemente */
+  .brandRow {
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* večji logo na desktopu */
+  .brand img {
+    height: 44px;
   }
 
   .menuBtn {
     display: none;
   }
 
+  /* Nav na desktopu vedno viden */
   .nav {
     display: flex;
     flex-direction: row;
     gap: 14px;
-    margin-top: 0;
+    margin-top: 12px;
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .nav a {
@@ -184,6 +210,7 @@ p, li {
     border-radius: 14px;
   }
 }
+
 /* Floating CALL button (mobile only) */
 .callFab {
   position: fixed;
@@ -209,4 +236,3 @@ p, li {
     display: none;
   }
 }
-

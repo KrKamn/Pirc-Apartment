@@ -1,5 +1,6 @@
 import { CONTACT } from "../lib/config";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { translations } from "../lib/translations";
@@ -37,8 +38,21 @@ export default function Layout({ children }) {
     <div className={`background ${mode}`}>
       <header className="header">
         <div className="brandRow">
-          <Link href="/" className="brand" onClick={() => setMenuOpen(false)}>
-            {t.brand}
+          {/* LOGO kot HOME gumb */}
+          <Link
+            href="/"
+            className="brand"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Home"
+            title="Home"
+          >
+            <Image
+              src="/logo.svg"
+              alt="Pirc Apartment"
+              width={160}
+              height={52}
+              priority
+            />
           </Link>
 
           <div className="headerActions">
@@ -108,13 +122,11 @@ export default function Layout({ children }) {
       </header>
 
       <main className="content">{children}</main>
-<a
-  href={`tel:${CONTACT.phone}`}
-  className="callFab"
-  aria-label="Call"
->
-  📞
-</a>
+
+      {/* Floating CALL button (mobile) */}
+      <a href={`tel:${CONTACT.phone}`} className="callFab" aria-label="Call">
+        📞
+      </a>
     </div>
   );
 }

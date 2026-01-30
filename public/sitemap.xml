@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://pirc-apartment.si/</loc>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://pirc-apartment.si/gallery</loc>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://pirc-apartment.si/availability</loc>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://pirc-apartment.si/ljubljana</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://pirc-apartment.si/contact</loc>
+    <priority>0.70</priority>
+  </url>
+
+</urlset>

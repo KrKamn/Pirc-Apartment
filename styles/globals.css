@@ -236,4 +236,80 @@ p, li {
     display: none;
   }
 }
-* { outline: 1px solid rgba(255,0,0,0.15); }
+/* ==== FIX horizontal overflow (mobile language switch) ==== */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.background {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;   /* varnost */
+}
+
+/* Header naj nikoli ne potisne širine */
+.header {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;     /* bolje kot hidden (kjer je podprto) */
+}
+
+/* FLEX overflow fix: brez min-width:0 se zna razširit */
+.brandRow {
+  width: 100%;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.brandRow > * {
+  min-width: 0;
+}
+
+/* Logo omejimo, da ne širi headerja */
+.brand img {
+  height: 34px;         /* malenkost manj za mobilne */
+  max-width: 140px;     /* KLJUČNO: prepreči overflow */
+  width: auto;
+}
+
+/* HeaderActions naj se lahko zlomi v novo vrstico in ne sili širine */
+.headerActions {
+  min-width: 0;
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* "Book now" lahko wrapa, vendar ne sme širiti strani */
+.bookNow {
+  white-space: normal;
+  max-width: 150px;     /* KLJUČNO za DE */
+  text-align: center;
+}
+
+/* Jezikovni gumbi naj ne širijo */
+.langSwitch {
+  max-width: 170px;
+  flex-wrap: nowrap;
+}
+
+.langSwitch button {
+  white-space: nowrap;
+}
+
+/* Content kartica: vedno znotraj ekrana */
+.content {
+  width: 100%;
+  max-width: 980px;
+  margin: 14px auto;    /* center + ne “vleče” v stran */
+  overflow: hidden;     /* če kak child štrli, ga odreže */
+}
+
+/* Varnost za vse elemente, ki radi štrlijo */
+img, iframe, video, svg {
+  max-width: 100%;
+  height: auto;
+}
+

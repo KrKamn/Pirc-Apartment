@@ -1,18 +1,24 @@
 /* ===== RESET & BASE ===== */
-* { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html, body {
   margin: 0;
   padding: 0;
-  width: 100%;
   max-width: 100%;
-  overflow-x: hidden;   /* prepreči raztezanje čez ekran */
+  overflow-x: hidden; /* prepreči “širjenje” */
+}
+
+body {
   font-family: Arial, Helvetica, sans-serif;
   color: #111;
 }
 
-/* če ima kje kak element preširok, ga prisilimo */
-img, video, iframe {
+/* Prevent long words/links from forcing width */
+img, svg, video, iframe {
   max-width: 100%;
 }
 
@@ -39,38 +45,31 @@ img, video, iframe {
 /* ===== HEADER ===== */
 .header {
   background: rgba(0,0,0,0.7);
-  padding: 12px 14px;
+  padding: 10px 12px;
 }
 
-/* NOVO: omejitev širine headerja, da ni raztegnjen čez 4K */
-.headerInner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* brand row */
-.brandRow {
+/* top row: logo left, burger right */
+.headerTop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
-/* brand link */
+/* brand link (logo) */
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
   line-height: 0;
-  padding: 2px 0;
+  min-width: 0;
 }
 
-/* SVG logo v brand linku */
+/* logo */
 .brand img {
   display: block;
   width: auto;
-  height: 38px;         /* mobile */
+  height: clamp(34px, 7vw, 48px);
   filter: invert(1);
   opacity: 0.95;
 }
@@ -79,23 +78,27 @@ img, video, iframe {
   opacity: 0.85;
 }
 
-/* ===== HEADER ACTIONS ===== */
-.headerActions {
+/* second row: actions */
+.headerActionsRow {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
+  margin-top: 10px;
 }
 
 /* ===== BOOK NOW BUTTON ===== */
 .bookNow {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
-  font-weight: 700;
-  padding: 9px 12px;
-  border-radius: 12px;
+  font-weight: 800;
+  padding: 10px 14px;
+  border-radius: 14px;
   background: #2f6f4e;
   color: white;
-  white-space: nowrap; /* da ne prelomi gumba */
+  white-space: nowrap;
 }
 
 .bookNow:hover {
@@ -106,33 +109,35 @@ img, video, iframe {
 .langSwitch {
   display: flex;
   gap: 6px;
+  flex-shrink: 0;
 }
 
 .langSwitch button {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.45);
   color: white;
-  padding: 6px 8px;
+  padding: 7px 9px;
   font-size: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   white-space: nowrap;
 }
 
 .langSwitch button.active {
-  background: rgba(255,255,255,0.25);
-  font-weight: 700;
+  background: rgba(255,255,255,0.22);
+  font-weight: 800;
 }
 
 /* ===== HAMBURGER BUTTON ===== */
 .menuBtn {
   border: 0;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.16);
   color: white;
   font-size: 22px;
-  padding: 8px 12px;
-  border-radius: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 /* ===== NAVIGATION ===== */
@@ -150,36 +155,54 @@ img, video, iframe {
 .nav a {
   color: white;
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 800;
   padding: 10px 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: rgba(255,255,255,0.08);
 }
 
 /* ===== CONTENT CARD ===== */
-/* NOVO: centered + max width + responsive padding */
 .content {
   background: rgba(255,255,255,0.96);
-  width: min(980px, calc(100% - 28px));
-  margin: 16px auto;     /* centriraj */
+  margin: 14px;
   padding: 16px;
-  border-radius: 14px;
+  border-radius: 16px;
+  max-width: 980px;
 }
 
 /* ===== TYPOGRAPHY ===== */
 h1 {
   font-size: 26px;
   margin: 10px 0 8px;
+  word-break: break-word;
 }
 
 h2 {
   font-size: 20px;
   margin: 18px 0 10px;
+  word-break: break-word;
 }
 
 p, li {
   font-size: 16px;
   line-height: 1.55;
+  word-break: break-word;
+}
+
+/* ===== MOBILE TUNING (very narrow phones) ===== */
+@media (max-width: 380px) {
+  .bookNow {
+    padding: 9px 12px;
+    border-radius: 12px;
+  }
+
+  .langSwitch button {
+    padding: 6px 8px;
+  }
+
+  .brand img {
+    height: clamp(32px, 8vw, 44px);
+  }
 }
 
 /* ===== DESKTOP ===== */
@@ -188,19 +211,29 @@ p, li {
     padding: 14px 18px;
   }
 
-  .brand img {
-    height: 42px; /* desktop logo */
+  /* desktop: vse v eni vrstici */
+  .headerTop {
+    gap: 14px;
   }
 
+  .headerActionsRow {
+    margin-top: 0;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  /* na desktopu skrij burger */
   .menuBtn {
     display: none;
   }
 
+  /* nav na desktopu vedno v vrstici */
   .nav {
     display: flex;
     flex-direction: row;
     gap: 14px;
-    margin-top: 0;
+    margin-top: 12px;
+    flex-wrap: wrap;
   }
 
   .nav a {
@@ -211,16 +244,14 @@ p, li {
   .content {
     margin: 28px auto;
     padding: 28px;
-    width: min(980px, calc(100% - 56px));
   }
 
-  .bookNow {
-    padding: 10px 14px;
-    border-radius: 14px;
+  .brand img {
+    height: 46px;
   }
 }
 
-/* ===== Floating CALL button (mobile only) ===== */
+/* Floating CALL button (mobile only) */
 .callFab {
   position: fixed;
   right: 16px;
@@ -240,5 +271,7 @@ p, li {
 }
 
 @media (min-width: 900px) {
-  .callFab { display: none; }
+  .callFab {
+    display: none;
+  }
 }

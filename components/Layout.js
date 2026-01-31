@@ -1,6 +1,5 @@
 import { CONTACT } from "../lib/config";
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { translations } from "../lib/translations";
@@ -37,97 +36,83 @@ export default function Layout({ children }) {
   return (
     <div className={`background ${mode}`}>
       <header className="header">
-        {/* OMEJITEV ŠIRINE HEADERJA */}
-        <div className="headerInner">
-          <div className="brandRow">
-            {/* LOGO = HOME */}
-            <Link
-              href="/"
-              className="brand"
-              onClick={() => setMenuOpen(false)}
-              aria-label="Home"
-              title="Home"
-            >
-              <Image
-                src="/logo.svg"
-                alt="Pirc Apartment"
-                width={160}
-                height={52}
-                priority
-              />
-            </Link>
+        {/* TOP ROW: logo left, burger right */}
+        <div className="headerTop">
+          <Link href="/" className="brand" onClick={() => setMenuOpen(false)} aria-label="Home">
+            <img src="/pirc-apartment-logo.svg" alt="Pirc Apartment" />
+          </Link>
 
-            <div className="headerActions">
-              <Link
-                href="/availability"
-                className="bookNow"
-                onClick={() => setMenuOpen(false)}
-              >
-                {t.bookNow}
-              </Link>
-
-              <div className="langSwitch" aria-label="Language switch">
-                <button
-                  type="button"
-                  onClick={() => setLang("si")}
-                  className={locale === "si" ? "active" : ""}
-                >
-                  SLO
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLang("en")}
-                  className={locale === "en" ? "active" : ""}
-                >
-                  EN
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLang("de")}
-                  className={locale === "de" ? "active" : ""}
-                >
-                  DE
-                </button>
-              </div>
-
-              <button
-                className="menuBtn"
-                onClick={() => setMenuOpen((v) => !v)}
-                aria-label="Menu"
-                aria-expanded={menuOpen}
-              >
-                ☰
-              </button>
-            </div>
-          </div>
-
-          <nav className={`nav ${menuOpen ? "open" : ""}`}>
-            <Link href="/" onClick={() => setMenuOpen(false)}>
-              {t.navHome}
-            </Link>
-            <Link href="/gallery" onClick={() => setMenuOpen(false)}>
-              {t.navGallery}
-            </Link>
-            <Link href="/availability" onClick={() => setMenuOpen(false)}>
-              {t.navAvailability}
-            </Link>
-            <Link href="/ljubljana" onClick={() => setMenuOpen(false)}>
-              {t.navLjubljana}
-            </Link>
-            <Link href="/contact" onClick={() => setMenuOpen(false)}>
-              {t.navContact}
-            </Link>
-            <Link href="/privacy" onClick={() => setMenuOpen(false)}>
-              {t.navPrivacy}
-            </Link>
-          </nav>
+          <button
+            className="menuBtn"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Menu"
+            aria-expanded={menuOpen}
+            type="button"
+          >
+            ☰
+          </button>
         </div>
+
+        {/* SECOND ROW: actions (Book now + languages) */}
+        <div className="headerActionsRow">
+          <Link
+            href="/availability"
+            className="bookNow"
+            onClick={() => setMenuOpen(false)}
+          >
+            {t.bookNow}
+          </Link>
+
+          <div className="langSwitch" aria-label="Language switch">
+            <button
+              type="button"
+              onClick={() => setLang("si")}
+              className={locale === "si" ? "active" : ""}
+            >
+              SLO
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang("en")}
+              className={locale === "en" ? "active" : ""}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang("de")}
+              className={locale === "de" ? "active" : ""}
+            >
+              DE
+            </button>
+          </div>
+        </div>
+
+        {/* NAV */}
+        <nav className={`nav ${menuOpen ? "open" : ""}`}>
+          <Link href="/" onClick={() => setMenuOpen(false)}>
+            {t.navHome}
+          </Link>
+          <Link href="/gallery" onClick={() => setMenuOpen(false)}>
+            {t.navGallery}
+          </Link>
+          <Link href="/availability" onClick={() => setMenuOpen(false)}>
+            {t.navAvailability}
+          </Link>
+          <Link href="/ljubljana" onClick={() => setMenuOpen(false)}>
+            {t.navLjubljana}
+          </Link>
+          <Link href="/contact" onClick={() => setMenuOpen(false)}>
+            {t.navContact}
+          </Link>
+          <Link href="/privacy" onClick={() => setMenuOpen(false)}>
+            {t.navPrivacy}
+          </Link>
+        </nav>
       </header>
 
-      {/* CONTENT CARD */}
       <main className="content">{children}</main>
 
-      {/* Floating CALL button (mobile only) */}
       <a href={`tel:${CONTACT.phone}`} className="callFab" aria-label="Call">
         📞
       </a>

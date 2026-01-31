@@ -1,8 +1,19 @@
 /* ===== RESET & BASE ===== */
-body {
+* { box-sizing: border-box; }
+
+html, body {
   margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;   /* prepreči raztezanje čez ekran */
   font-family: Arial, Helvetica, sans-serif;
   color: #111;
+}
+
+/* če ima kje kak element preširok, ga prisilimo */
+img, video, iframe {
+  max-width: 100%;
 }
 
 /* ===== BACKGROUND DAY / NIGHT ===== */
@@ -31,6 +42,13 @@ body {
   padding: 12px 14px;
 }
 
+/* NOVO: omejitev širine headerja, da ni raztegnjen čez 4K */
+.headerInner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* brand row */
 .brandRow {
   display: flex;
   align-items: center;
@@ -38,23 +56,22 @@ body {
   gap: 12px;
 }
 
-/* LOGO kot home gumb (Link) */
+/* brand link */
 .brand {
   display: flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  line-height: 0; /* prepreči baseline zamik */
+  line-height: 0;
   padding: 2px 0;
 }
 
 /* SVG logo v brand linku */
 .brand img {
   display: block;
-  height: 34px;        /* mobilna višina */
   width: auto;
-  max-width: 140px;   /* 🔑 prepreči horizontal overflow */
-  filter: invert(1);  /* črn SVG → bel v temnem headerju */
+  height: 38px;         /* mobile */
+  filter: invert(1);
   opacity: 0.95;
 }
 
@@ -76,8 +93,9 @@ body {
   font-weight: 700;
   padding: 9px 12px;
   border-radius: 12px;
-  background: #2f6f4e; /* umirjena zelena */
+  background: #2f6f4e;
   color: white;
+  white-space: nowrap; /* da ne prelomi gumba */
 }
 
 .bookNow:hover {
@@ -98,6 +116,7 @@ body {
   font-size: 12px;
   border-radius: 8px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .langSwitch button.active {
@@ -116,7 +135,7 @@ body {
   cursor: pointer;
 }
 
-/* ===== NAVIGATION (mobile) ===== */
+/* ===== NAVIGATION ===== */
 .nav {
   display: none;
   flex-direction: column;
@@ -138,12 +157,13 @@ body {
 }
 
 /* ===== CONTENT CARD ===== */
+/* NOVO: centered + max width + responsive padding */
 .content {
   background: rgba(255,255,255,0.96);
-  margin: 14px;
+  width: min(980px, calc(100% - 28px));
+  margin: 16px auto;     /* centriraj */
   padding: 16px;
   border-radius: 14px;
-  max-width: 980px;
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -164,36 +184,23 @@ p, li {
 
 /* ===== DESKTOP ===== */
 @media (min-width: 900px) {
-  /* Header ostane “širok”, vsebina pa center */
   .header {
     padding: 14px 18px;
   }
 
-  /* brandRow naj zasede širino in poravna elemente */
-  .brandRow {
-    width: 100%;
-    max-width: 980px;
-    margin: 0 auto;
-  }
-
-  /* večji logo na desktopu */
   .brand img {
-    height: 44px;
+    height: 42px; /* desktop logo */
   }
 
   .menuBtn {
     display: none;
   }
 
-  /* Nav na desktopu vedno viden */
   .nav {
     display: flex;
     flex-direction: row;
     gap: 14px;
-    margin-top: 12px;
-    max-width: 980px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 0;
   }
 
   .nav a {
@@ -204,6 +211,7 @@ p, li {
   .content {
     margin: 28px auto;
     padding: 28px;
+    width: min(980px, calc(100% - 56px));
   }
 
   .bookNow {
@@ -212,7 +220,7 @@ p, li {
   }
 }
 
-/* Floating CALL button (mobile only) */
+/* ===== Floating CALL button (mobile only) ===== */
 .callFab {
   position: fixed;
   right: 16px;
@@ -231,86 +239,6 @@ p, li {
   z-index: 9999;
 }
 
-/* hide on desktop */
 @media (min-width: 900px) {
-  .callFab {
-    display: none;
-  }
+  .callFab { display: none; }
 }
-/* ==== FIX horizontal overflow (mobile language switch) ==== */
-html, body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-.background {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;   /* varnost */
-}
-
-/* Header naj nikoli ne potisne širine */
-.header {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: clip;     /* bolje kot hidden (kjer je podprto) */
-}
-
-/* FLEX overflow fix: brez min-width:0 se zna razširit */
-.brandRow {
-  width: 100%;
-  max-width: 100%;
-  flex-wrap: wrap;
-}
-
-.brandRow > * {
-  min-width: 0;
-}
-
-/* Logo omejimo, da ne širi headerja */
-.brand img {
-  height: 34px;         /* malenkost manj za mobilne */
-  max-width: 140px;     /* KLJUČNO: prepreči overflow */
-  width: auto;
-}
-
-/* HeaderActions naj se lahko zlomi v novo vrstico in ne sili širine */
-.headerActions {
-  min-width: 0;
-  max-width: 100%;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-/* "Book now" lahko wrapa, vendar ne sme širiti strani */
-.bookNow {
-  white-space: normal;
-  max-width: 150px;     /* KLJUČNO za DE */
-  text-align: center;
-}
-
-/* Jezikovni gumbi naj ne širijo */
-.langSwitch {
-  max-width: 170px;
-  flex-wrap: nowrap;
-}
-
-.langSwitch button {
-  white-space: nowrap;
-}
-
-/* Content kartica: vedno znotraj ekrana */
-.content {
-  width: 100%;
-  max-width: 980px;
-  margin: 14px auto;    /* center + ne “vleče” v stran */
-  overflow: hidden;     /* če kak child štrli, ga odreže */
-}
-
-/* Varnost za vse elemente, ki radi štrlijo */
-img, iframe, video, svg {
-  max-width: 100%;
-  height: auto;
-}
-

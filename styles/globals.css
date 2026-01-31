@@ -51,9 +51,10 @@ body {
 /* SVG logo v brand linku */
 .brand img {
   display: block;
+  height: 34px;        /* mobilna višina */
   width: auto;
-  height: 38px;      /* mobile višina */
-  filter: invert(1); /* header je temen, logo črn -> invert v belega */
+  max-width: 140px;   /* 🔑 prepreči horizontal overflow */
+  filter: invert(1);  /* črn SVG → bel v temnem headerju */
   opacity: 0.95;
 }
 

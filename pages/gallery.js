@@ -97,9 +97,17 @@ export default function Gallery() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const openAt = (idx) => {
-    setActiveIndex(idx);
-    setOpen(true);
-  };
+  // prepreči da telefon “skoči” po strani
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+  setActiveIndex(idx);
+  setOpen(true);
+
+  // še enkrat po renderju (mobile včasih scrolla po odprtju)
+  setTimeout(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, 0);
+};
 
   const close = () => setOpen(false);
 
@@ -199,12 +207,14 @@ export default function Gallery() {
       <div className="galleryGrid">
         {images.map((src, i) => (
           <button
-            key={src + i}
-            type="button"
-            className="galleryThumb"
-            onClick={() => openAt(i)}
-            aria-label="Open image"
-          >
+  key={src + i}
+  type="button"
+  className="galleryThumb"
+  onMouseDown={(e) => e.preventDefault()}
+  onTouchStart={(e) => e.preventDefault()}
+  onClick={() => openAt(i)}
+  aria-label="Open image"
+>
             <img
               src={src}
               alt={src.includes("award") ? altAward : altApartment}

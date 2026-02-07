@@ -36,59 +36,60 @@ export default function Layout({ children }) {
   return (
     <div className={`background ${mode}`}>
       <header className="header">
-        {/* TOP ROW: logo left, burger right */}
-        <div className="headerTop">
-          <Link href="/" className="brand" onClick={() => setMenuOpen(false)} aria-label="Home">
-            <img src="/pirc-apartment-logo.svg" alt="Pirc Apartment" />
-          </Link>
+        <div className="brandRow">
+          {/* LEFT */}
+          <div className="headerLeft">
+            <Link href="/" className="brand" onClick={() => setMenuOpen(false)} aria-label="Home">
+              <img src="/pirc-apartment-logo.svg" alt="Pirc Apartment" />
+            </Link>
 
-          <button
-            className="menuBtn"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Menu"
-            aria-expanded={menuOpen}
-            type="button"
-          >
-            ☰
-          </button>
-        </div>
+            <button
+              className="menuBtn"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Menu"
+              aria-expanded={menuOpen}
+              type="button"
+            >
+              ☰
+            </button>
+          </div>
 
-        {/* SECOND ROW: actions (Book now + languages) */}
-        <div className="headerActionsRow">
-          <Link
-            href="/availability"
-            className="bookNow"
-            onClick={() => setMenuOpen(false)}
-          >
-            {t.bookNow}
-          </Link>
+          {/* RIGHT */}
+          <div className="headerRight">
+            <Link
+              href="/availability"
+              className="bookNow"
+              onClick={() => setMenuOpen(false)}
+            >
+              {t.bookNow}
+            </Link>
 
-          <div className="langSwitch" aria-label="Language switch">
-            <button
-              type="button"
-              onClick={() => setLang("si")}
-              className={locale === "si" ? "active" : ""}
-            >
-              SLO
-            </button>
-            <button
-              type="button"
-              onClick={() => setLang("en")}
-              className={locale === "en" ? "active" : ""}
-            >
-              EN
-            </button>
-            <button
-              type="button"
-              onClick={() => setLang("de")}
-              className={locale === "de" ? "active" : ""}
-            >
-              DE
-            </button>
+            <div className="langSwitch" aria-label="Language switch">
+              <button
+                type="button"
+                onClick={() => setLang("si")}
+                className={locale === "si" ? "active" : ""}
+              >
+                SLO
+              </button>
+              <button
+                type="button"
+                onClick={() => setLang("en")}
+                className={locale === "en" ? "active" : ""}
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => setLang("de")}
+                className={locale === "de" ? "active" : ""}
+              >
+                DE
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* NAV */}
         <nav className={`nav ${menuOpen ? "open" : ""}`}>
           <Link href="/" onClick={() => setMenuOpen(false)}>
             {t.navHome}

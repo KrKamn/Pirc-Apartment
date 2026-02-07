@@ -48,10 +48,35 @@ img, svg, video, iframe {
   padding: 12px 16px;
 }
 
-.headerTop {
+/* ===== HEADER LAYOUT (left / right) ===== */
+.brandRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+/* točka C) — na ozkih mobilnih ekranih naj se desni del po potrebi prelomi */
+@media (max-width: 520px) {
+  .headerRight {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }
 
 /* Logo */
@@ -71,14 +96,6 @@ img, svg, video, iframe {
 
 .brand:hover img {
   opacity: 0.85;
-}
-
-/* Header actions */
-.headerActionsRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
 }
 
 /* ===== BOOK NOW ===== */
@@ -113,6 +130,7 @@ img, svg, video, iframe {
   font-size: 12px;
   border-radius: 10px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .langSwitch button.active {
@@ -129,6 +147,7 @@ img, svg, video, iframe {
   padding: 10px 12px;
   border-radius: 12px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 /* ===== NAV ===== */
@@ -340,13 +359,18 @@ p, li {
   display: flex;
   align-items: center;
   justify-content: center;
+  touch-action: pan-y;
 }
 
+/* KLJUČ: slika naj bo centrirana in naj se NE raztegne na 100% širine */
 .lightboxImage {
+  width: auto;
+  height: auto;
   max-width: 100%;
   max-height: 92vh;
   object-fit: contain;
   border-radius: 14px;
+  user-select: none;
 }
 
 .lightboxClose,

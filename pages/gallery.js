@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { translations } from "../lib/translations";
+import { createPortal } from "react-dom";
 
 export default function Gallery() {
   const { locale } = useRouter();
@@ -96,38 +97,52 @@ export default function Gallery() {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const openAt = (idx) => {
-  // prepreči da telefon “skoči” po strani
-  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  // Portal mount
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  setActiveIndex(idx);
-  setOpen(true);
+  // Scroll lock (prepreči “skok” in scrolling spodaj)
+  const scrollYRef = useRef(0);
 
-  // še enkrat po renderju (mobile včasih scrolla po odprtju)
-  setTimeout(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  }, 0);
-};
+  const lockScroll = () => {
+    scrollYRef.current = window.scrollY || 0;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollYRef.current}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  };
 
-  const close = () => setOpen(false);
+  const unlockScroll = () => {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, scrollYRef.current);
+  };
+
+  const openAt = (idx, e) => {
+    // prepreči focus/scroll skoke na mobilnih brskalnikih
+    if (e?.currentTarget?.blur) e.currentTarget.blur();
+    if (e?.preventDefault) e.preventDefault();
+
+    setActiveIndex(idx);
+    setOpen(true);
+    lockScroll();
+  };
+
+  const close = () => {
+    setOpen(false);
+    unlockScroll();
+  };
 
   const prev = () => setActiveIndex((i) => (i - 1 + images.length) % images.length);
   const next = () => setActiveIndex((i) => (i + 1) % images.length);
 
-  // prevent page scroll when lightbox open
-  useEffect(() => {
-    if (!open) return;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [open]);
-
   // keyboard navigation
   useEffect(() => {
     if (!open) return;
-
     const onKey = (e) => {
       if (e.key === "Escape") close();
       if (e.key === "ArrowLeft") prev();
@@ -162,7 +177,6 @@ export default function Gallery() {
     const dx = touchRef.current.x - touchRef.current.x0;
     const dy = touchRef.current.y - touchRef.current.y0;
 
-    // horizontal swipe only
     if (Math.abs(dx) > 45 && Math.abs(dy) < 60) {
       if (dx > 0) prev();
       else next();
@@ -170,6 +184,148 @@ export default function Gallery() {
   };
 
   const activeSrc = images[activeIndex];
+
+  // Inline styles for overlay (da je 100% fixed, tudi če CSS conflict)
+  const overlay = open ? (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 999999,
+        background: "rgba(0,0,0,0.92)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 14,
+      }}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image viewer"
+      onClick={close}
+    >
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          maxWidth: 1000,
+          maxHeight: "95vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        <button
+          type="button"
+          onClick={close}
+          aria-label={ui.close}
+          style={{
+            position: "absolute",
+            top: -8,
+            right: -8,
+            width: 42,
+            height: 42,
+            borderRadius: 999,
+            border: "none",
+            background: "rgba(255,255,255,0.2)",
+            color: "#fff",
+            cursor: "pointer",
+            fontSize: 18,
+          }}
+        >
+          ✕
+        </button>
+
+        <button
+          type="button"
+          onClick={prev}
+          aria-label={ui.prev}
+          style={{
+            position: "absolute",
+            left: 10,
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: 46,
+            height: 46,
+            borderRadius: 999,
+            border: "none",
+            background: "rgba(255,255,255,0.2)",
+            color: "#fff",
+            cursor: "pointer",
+            fontSize: 28,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          ‹
+        </button>
+
+        <img
+          src={activeSrc}
+          alt={activeSrc?.includes("award") ? altAward : altApartment}
+          draggable="false"
+          style={{
+            width: "auto",
+            height: "auto",
+            maxWidth: "100%",
+            maxHeight: "90vh",
+            objectFit: "contain",
+            borderRadius: 14,
+            margin: "0 auto",
+          }}
+        />
+
+        <button
+          type="button"
+          onClick={next}
+          aria-label={ui.next}
+          style={{
+            position: "absolute",
+            right: 10,
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: 46,
+            height: 46,
+            borderRadius: 999,
+            border: "none",
+            background: "rgba(255,255,255,0.2)",
+            color: "#fff",
+            cursor: "pointer",
+            fontSize: 28,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          ›
+        </button>
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: 10,
+            left: "50%",
+            transform: "translateX(-50%)",
+            fontSize: 12,
+            color: "rgba(255,255,255,0.85)",
+            background: "rgba(0,0,0,0.25)",
+            padding: "6px 10px",
+            borderRadius: 999,
+          }}
+        >
+          {locale === "de"
+            ? "Wischen oder Pfeile benutzen"
+            : locale === "en"
+            ? "Swipe or use arrows"
+            : "Swipe ali uporabi puščice"}
+        </div>
+      </div>
+    </div>
+  ) : null;
 
   return (
     <Layout>
@@ -182,7 +338,6 @@ export default function Gallery() {
 
       <h1>{ui.title}</h1>
 
-      {/* CATEGORY BUTTONS */}
       <div className="galleryFilter" role="tablist" aria-label="Gallery categories">
         <button
           type="button"
@@ -203,18 +358,15 @@ export default function Gallery() {
         </button>
       </div>
 
-      {/* IMAGE GRID */}
       <div className="galleryGrid">
         {images.map((src, i) => (
           <button
-  key={src + i}
-  type="button"
-  className="galleryThumb"
-  onMouseDown={(e) => e.preventDefault()}
-  onTouchStart={(e) => e.preventDefault()}
-  onClick={() => openAt(i)}
-  aria-label="Open image"
->
+            key={src + i}
+            type="button"
+            className="galleryThumb"
+            onClick={(e) => openAt(i, e)}
+            aria-label="Open image"
+          >
             <img
               src={src}
               alt={src.includes("award") ? altAward : altApartment}
@@ -225,45 +377,8 @@ export default function Gallery() {
         ))}
       </div>
 
-      {/* LIGHTBOX */}
-      {open ? (
-        <div className="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" onClick={close}>
-          <div
-            className="lightboxInner"
-            onClick={(e) => e.stopPropagation()}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-          >
-            <button type="button" className="lightboxClose" onClick={close} aria-label={ui.close}>
-              ✕
-            </button>
-
-            <button type="button" className="lightboxNav left" onClick={prev} aria-label={ui.prev}>
-              ‹
-            </button>
-
-            <img
-              src={activeSrc}
-              alt={activeSrc?.includes("award") ? altAward : altApartment}
-              className="lightboxImage"
-              draggable="false"
-            />
-
-            <button type="button" className="lightboxNav right" onClick={next} aria-label={ui.next}>
-              ›
-            </button>
-
-            <div className="lightboxHint">
-              {locale === "de"
-                ? "Wischen oder Pfeile benutzen"
-                : locale === "en"
-                ? "Swipe or use arrows"
-                : "Swipe ali uporabi puščice"}
-            </div>
-          </div>
-        </div>
-      ) : null}
+      {/* PORTAL: lightbox gre direktno v body -> vedno takoj na ekranu */}
+      {mounted && open ? createPortal(overlay, document.body) : null}
     </Layout>
   );
 }

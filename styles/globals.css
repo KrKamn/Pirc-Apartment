@@ -325,3 +325,42 @@ p, li {
     width: 170px;
   }
 }
+/* ===== GALLERY FILTER ===== */
+.galleryFilter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.galleryFilter button {
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: none;
+  background: #eaeaea;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.galleryFilter button.active {
+  background: #2f6f4e;
+  color: white;
+}
+
+/* ===== GALLERY GRID ===== */
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.galleryImage {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.galleryImage:hover {
+  transform: scale(1.03);
+}

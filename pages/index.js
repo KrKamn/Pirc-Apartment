@@ -13,6 +13,49 @@ export default function Home() {
       <Head>
         <title>{t.homeTitle}</title>
         <meta name="description" content={t.homeSubtitle} />
+
+        {/* SEO Keywords */}
+        <meta
+          name="keywords"
+          content="Pirc Apartment, apartment Ljubljana, Bežigrad apartment, Booking award 2026, 9.4 rating accommodation Ljubljana"
+        />
+
+        {/* Open Graph (social sharing preview) */}
+        <meta property="og:title" content="Pirc Apartment – Awarded 9.4 on Booking.com (2026)" />
+        <meta
+          property="og:description"
+          content="Awarded 9.4/10 by verified guests on Booking.com in 2026."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://pirc-apartment.si/booking-award-2026.png" />
+        <meta property="og:url" content="https://pirc-apartment.si" />
+
+        {/* Structured Data for Google */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LodgingBusiness",
+              name: "Pirc Apartment",
+              image: "https://pirc-apartment.si/booking-award-2026.png",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Dunajska cesta 86",
+                addressLocality: "Ljubljana",
+                postalCode: "1000",
+                addressCountry: "SI",
+              },
+              award: "Booking.com Traveller Review Award 2026",
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "9.4",
+                bestRating: "10",
+              },
+              url: "https://pirc-apartment.si",
+            }),
+          }}
+        />
       </Head>
 
       <h1>{t.homeTitle}</h1>

@@ -275,3 +275,53 @@ p, li {
     display: none;
   }
 }
+/* ===== BOOKING AWARD ===== */
+.awardSection {
+  margin: 22px 0 10px;
+  padding: 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f6f8f7, #ffffff);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.awardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.awardText h2 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+}
+
+.awardText p {
+  margin: 0;
+}
+
+.awardText strong {
+  color: #2f6f4e;
+}
+
+.awardImage {
+  width: 140px;
+  height: auto;
+}
+
+@media (min-width: 900px) {
+  .awardSection {
+    padding: 22px 24px;
+  }
+
+  .awardContent {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .awardImage {
+    width: 170px;
+  }
+}

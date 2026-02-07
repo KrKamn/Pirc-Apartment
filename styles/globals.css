@@ -447,3 +447,157 @@ p, li {
   .lightboxNav.left { left: 6px; }
   .lightboxNav.right { right: 6px; }
 }
+/* ===========================
+   PREMIUM POLISH (mobile-first)
+   Paste at END of globals.css
+   =========================== */
+
+/* Better page rhythm */
+.content {
+  margin: 14px auto;
+  width: calc(100% - 28px);
+  max-width: 980px;
+  padding: 18px;
+  border-radius: 18px;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.18);
+  backdrop-filter: blur(6px);
+}
+
+/* Typography polish */
+h1 {
+  font-size: 30px;
+  letter-spacing: -0.3px;
+  margin-top: 6px;
+}
+
+p {
+  color: rgba(0,0,0,0.78);
+}
+
+/* Header: cleaner spacing + subtle border */
+.header {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+}
+
+/* Make burger look like icon button */
+.menuBtn {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+}
+
+/* Book now button = more premium */
+.bookNow {
+  padding: 12px 16px;
+  border-radius: 16px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+}
+
+/* Language buttons: smaller + consistent */
+.langSwitch button {
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+/* Mobile header layout: less bulky */
+@media (max-width: 520px) {
+  .brandRow { gap: 10px; }
+
+  .headerRight {
+    gap: 10px;
+    align-items: center;
+  }
+
+  .bookNow {
+    padding: 10px 14px;
+    border-radius: 14px;
+  }
+
+  .langSwitch button {
+    padding: 7px 9px;
+    font-size: 12px;
+  }
+}
+
+/* Award block: better proportions */
+.awardSection {
+  margin: 18px 0 16px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.12);
+}
+
+.awardText h2 {
+  font-size: 18px;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.awardContent {
+  gap: 12px;
+}
+
+/* Award image: make it look like a card */
+.awardImage {
+  width: min(320px, 100%);
+  border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+}
+
+/* On desktop keep it balanced */
+@media (min-width: 900px) {
+  .content {
+    padding: 26px;
+    border-radius: 22px;
+  }
+
+  .awardSection {
+    padding: 20px 22px;
+  }
+
+  .awardImage {
+    width: 260px;
+  }
+}
+
+/* Nav dropdown: make it look like a real menu */
+.nav.open {
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(0,0,0,0.55);
+  box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+}
+
+/* Call FAB: keep away from content + safe area */
+.callFab {
+  right: 18px;
+  bottom: 18px;
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.38);
+}
+
+/* Prevent FAB from covering text on smaller phones */
+@media (max-width: 520px) {
+  .content {
+    padding-bottom: 86px; /* space for call button */
+  }
+}
+
+/* Gallery thumbs look more even (if needed) */
+.galleryThumb {
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+}
+
+.galleryImage {
+  transform: translateZ(0);
+}

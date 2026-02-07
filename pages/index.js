@@ -31,31 +31,34 @@ export default function Home() {
         <meta property="og:url" content="https://pirc-apartment.si" />
 
         {/* Structured Data for Google */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LodgingBusiness",
-              name: "Pirc Apartment",
-              image: "https://pirc-apartment.si/booking-award-2026.png",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Dunajska cesta 86",
-                addressLocality: "Ljubljana",
-                postalCode: "1000",
-                addressCountry: "SI",
-              },
-              award: "Booking.com Traveller Review Award 2026",
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "9.4",
-                bestRating: "10",
-              },
-              url: "https://pirc-apartment.si",
-            }),
-          }}
-        />
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      name: "Pirc Apartment",
+      url: "https://pirc-apartment.si/",
+      image: "https://pirc-apartment.si/booking-award-2026.png",
+      telephone: "+38631347049",      // <-- zamenjaj s pravo
+      priceRange: "€€",              // <-- izberi €, €€, €€€
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Dunajska cesta 86",
+        addressLocality: "Ljubljana",
+        postalCode: "1000",
+        addressCountry: "SI",
+      },
+      award: "Booking.com Traveller Review Award 2026",
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: 9.4,            // številka (ne string)
+        bestRating: 10,              // številka (ne string)
+        ratingCount: 174,            // <-- OBVEZNO: zamenjaj z dejanskim št. ocen
+      },
+    }),
+  }}
+/>
       </Head>
 
       <h1>{t.homeTitle}</h1>

@@ -9,7 +9,7 @@ html, body {
   margin: 0;
   padding: 0;
   max-width: 100%;
-  overflow-x: hidden; /* prepreči “širjenje” */
+  overflow-x: hidden;
 }
 
 body {
@@ -17,9 +17,9 @@ body {
   color: #111;
 }
 
-/* Prevent long words/links from forcing width */
 img, svg, video, iframe {
   max-width: 100%;
+  display: block;
 }
 
 /* ===== BACKGROUND DAY / NIGHT ===== */
@@ -45,31 +45,26 @@ img, svg, video, iframe {
 /* ===== HEADER ===== */
 .header {
   background: rgba(0,0,0,0.7);
-  padding: 10px 12px;
+  padding: 12px 16px;
 }
 
-/* top row: logo left, burger right */
 .headerTop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
 }
 
-/* brand link (logo) */
+/* Logo */
 .brand {
   display: flex;
   align-items: center;
   text-decoration: none;
   line-height: 0;
-  min-width: 0;
 }
 
-/* logo */
 .brand img {
-  display: block;
+  height: clamp(36px, 6vw, 46px);
   width: auto;
-  height: clamp(34px, 7vw, 48px);
   filter: invert(1);
   opacity: 0.95;
 }
@@ -78,16 +73,15 @@ img, svg, video, iframe {
   opacity: 0.85;
 }
 
-/* second row: actions */
+/* Header actions */
 .headerActionsRow {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   margin-top: 10px;
 }
 
-/* ===== BOOK NOW BUTTON ===== */
+/* ===== BOOK NOW ===== */
 .bookNow {
   display: inline-flex;
   align-items: center;
@@ -109,7 +103,6 @@ img, svg, video, iframe {
 .langSwitch {
   display: flex;
   gap: 6px;
-  flex-shrink: 0;
 }
 
 .langSwitch button {
@@ -120,7 +113,6 @@ img, svg, video, iframe {
   font-size: 12px;
   border-radius: 10px;
   cursor: pointer;
-  white-space: nowrap;
 }
 
 .langSwitch button.active {
@@ -128,7 +120,7 @@ img, svg, video, iframe {
   font-weight: 800;
 }
 
-/* ===== HAMBURGER BUTTON ===== */
+/* ===== MENU BUTTON ===== */
 .menuBtn {
   border: 0;
   background: rgba(255,255,255,0.16);
@@ -137,10 +129,9 @@ img, svg, video, iframe {
   padding: 10px 12px;
   border-radius: 12px;
   cursor: pointer;
-  flex-shrink: 0;
 }
 
-/* ===== NAVIGATION ===== */
+/* ===== NAV ===== */
 .nav {
   display: none;
   flex-direction: column;
@@ -156,16 +147,16 @@ img, svg, video, iframe {
   color: white;
   text-decoration: none;
   font-weight: 800;
-  padding: 10px 10px;
+  padding: 10px;
   border-radius: 12px;
   background: rgba(255,255,255,0.08);
 }
 
-/* ===== CONTENT CARD ===== */
+/* ===== CONTENT ===== */
 .content {
   background: rgba(255,255,255,0.96);
-  margin: 14px;
-  padding: 16px;
+  margin: 16px;
+  padding: 20px;
   border-radius: 16px;
   max-width: 980px;
 }
@@ -173,65 +164,35 @@ img, svg, video, iframe {
 /* ===== TYPOGRAPHY ===== */
 h1 {
   font-size: 26px;
-  margin: 10px 0 8px;
+  margin: 12px 0 10px;
   word-break: break-word;
 }
 
 h2 {
   font-size: 20px;
-  margin: 18px 0 10px;
-  word-break: break-word;
+  margin: 20px 0 12px;
 }
 
 p, li {
   font-size: 16px;
-  line-height: 1.55;
+  line-height: 1.6;
   word-break: break-word;
-}
-
-/* ===== MOBILE TUNING (very narrow phones) ===== */
-@media (max-width: 380px) {
-  .bookNow {
-    padding: 9px 12px;
-    border-radius: 12px;
-  }
-
-  .langSwitch button {
-    padding: 6px 8px;
-  }
-
-  .brand img {
-    height: clamp(32px, 8vw, 44px);
-  }
 }
 
 /* ===== DESKTOP ===== */
 @media (min-width: 900px) {
   .header {
-    padding: 14px 18px;
+    padding: 16px 22px;
   }
 
-  /* desktop: vse v eni vrstici */
-  .headerTop {
-    gap: 14px;
-  }
-
-  .headerActionsRow {
-    margin-top: 0;
-    justify-content: flex-end;
-    gap: 12px;
-  }
-
-  /* na desktopu skrij burger */
   .menuBtn {
     display: none;
   }
 
-  /* nav na desktopu vedno v vrstici */
   .nav {
     display: flex;
     flex-direction: row;
-    gap: 14px;
+    gap: 16px;
     margin-top: 12px;
     flex-wrap: wrap;
   }
@@ -242,16 +203,12 @@ p, li {
   }
 
   .content {
-    margin: 28px auto;
-    padding: 28px;
-  }
-
-  .brand img {
-    height: 46px;
+    margin: 30px auto;
+    padding: 30px;
   }
 }
 
-/* Floating CALL button (mobile only) */
+/* ===== FLOAT CALL BUTTON ===== */
 .callFab {
   position: fixed;
   right: 16px;
@@ -275,10 +232,11 @@ p, li {
     display: none;
   }
 }
+
 /* ===== BOOKING AWARD ===== */
 .awardSection {
-  margin: 22px 0 10px;
-  padding: 18px;
+  margin: 24px 0;
+  padding: 20px;
   border-radius: 16px;
   background: linear-gradient(135deg, #f6f8f7, #ffffff);
   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
@@ -288,17 +246,8 @@ p, li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
   gap: 14px;
-}
-
-.awardText h2 {
-  margin: 0 0 6px 0;
-  font-size: 18px;
-}
-
-.awardText p {
-  margin: 0;
+  text-align: center;
 }
 
 .awardText strong {
@@ -306,15 +255,11 @@ p, li {
 }
 
 .awardImage {
-  width: 140px;
+  width: 150px;
   height: auto;
 }
 
 @media (min-width: 900px) {
-  .awardSection {
-    padding: 22px 24px;
-  }
-
   .awardContent {
     flex-direction: row;
     justify-content: space-between;
@@ -322,45 +267,112 @@ p, li {
   }
 
   .awardImage {
-    width: 170px;
+    width: 180px;
   }
 }
-/* ===== GALLERY FILTER ===== */
+
+/* ===== GALLERY ===== */
 .galleryFilter {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin: 14px 0 20px;
+  flex-wrap: wrap;
 }
 
 .galleryFilter button {
   padding: 8px 14px;
   border-radius: 12px;
-  border: none;
-  background: #eaeaea;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.9);
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .galleryFilter button.active {
   background: #2f6f4e;
   color: white;
+  border-color: #2f6f4e;
 }
 
-/* ===== GALLERY GRID ===== */
 .galleryGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.galleryThumb {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.04);
+  cursor: pointer;
+  border: none;
+  padding: 0;
 }
 
 .galleryImage {
   width: 100%;
-  height: auto;
-  border-radius: 12px;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s ease;
 }
 
-.galleryImage:hover {
+.galleryThumb:hover .galleryImage {
   transform: scale(1.03);
 }
+
+/* ===== LIGHTBOX ===== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 16px;
+}
+
+.lightboxInner {
+  position: relative;
+  width: min(1000px, 100%);
+  max-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightboxImage {
+  max-width: 100%;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+.lightboxClose,
+.lightboxNav {
+  position: absolute;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.lightboxClose {
+  top: -8px;
+  right: -8px;
+  width: 42px;
+  height: 42px;
+}
+
+.lightboxNav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  font-size: 26px;
+}
+
+.lightboxNav.left { left: 10px; }
+.lightboxNav.right { right: 10px; }

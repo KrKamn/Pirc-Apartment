@@ -29,43 +29,56 @@ iframe {
 }
 
 /* ===========================
-   BACKGROUND WITH IMAGE (soft charcoal)
+   BACKGROUND WITH IMAGE
    =========================== */
 
 .background {
   min-height: 100vh;
-  background-image: 
-    linear-gradient(
-      rgba(20, 20, 20, 0.55), 
-      rgba(20, 20, 20, 0.55)
-    ),
-    url("/images/charcoal-house.jpg"); /* <-- tvoja skica */
-    
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
   background-attachment: fixed;
+  position: relative;
 }
 
-/* DAY – slightly lighter */
+/* overlay za boljši kontrast */
+.background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(10,10,10,0.65) 0%,
+    rgba(20,20,20,0.55) 40%,
+    rgba(15,15,15,0.70) 100%
+  );
+}
+
+.background > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* DAY */
 .background.day {
-  background-image:
-    linear-gradient(
-      rgba(25, 30, 28, 0.50),
-      rgba(25, 30, 28, 0.55)
-    ),
-    url("/images/charcoal-house.jpg");
+  background-image: url("/images/ljubljana-charcoal.jpg");
 }
 
-/* NIGHT – slightly darker but still visible */
+/* NIGHT – malo temnejši overlay */
 .background.night {
-  background-image:
-    linear-gradient(
-      rgba(15, 18, 18, 0.65),
-      rgba(15, 18, 18, 0.70)
-    ),
-    url("/images/charcoal-house.jpg");
+  background-image: url("/images/ljubljana-charcoal.jpg");
 }
+
+.background.night::before {
+  background: linear-gradient(
+    180deg,
+    rgba(5,5,5,0.75) 0%,
+    rgba(10,10,10,0.70) 50%,
+    rgba(5,5,5,0.85) 100%
+  );
+}
+
 
 
 

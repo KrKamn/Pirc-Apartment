@@ -8,6 +8,13 @@ export default function Home() {
   const { locale } = useRouter();
   const t = translations[locale] || translations.si;
 
+  const ctaHint =
+    locale === "de"
+      ? "Sofortige Bestätigung • Kostenlose Stornierung (je nach Tarif)"
+      : locale === "en"
+      ? "Instant confirmation • Free cancellation (depends on rate)"
+      : "Takojšnja potrditev • Brezplačna odpoved (odvisno od tarife)";
+
   return (
     <Layout>
       <Head>
@@ -21,44 +28,50 @@ export default function Home() {
         />
 
         {/* Open Graph (social sharing preview) */}
-        <meta property="og:title" content="Pirc Apartment – Awarded 9.4 on Booking.com (2026)" />
+        <meta
+          property="og:title"
+          content="Pirc Apartment – Awarded 9.4 on Booking.com (2026)"
+        />
         <meta
           property="og:description"
           content="Awarded 9.4/10 by verified guests on Booking.com in 2026."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://pirc-apartment.si/booking-award-2026.png" />
+        <meta
+          property="og:image"
+          content="https://pirc-apartment.si/booking-award-2026.png"
+        />
         <meta property="og:url" content="https://pirc-apartment.si" />
 
         {/* Structured Data for Google */}
-<script
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{
-    __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "LodgingBusiness",
-      name: "Pirc Apartment",
-      url: "https://pirc-apartment.si/",
-      image: "https://pirc-apartment.si/booking-award-2026.png",
-      telephone: "+38631347049",      // <-- zamenjaj s pravo
-      priceRange: "€€",              // <-- izberi €, €€, €€€
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Dunajska cesta 86",
-        addressLocality: "Ljubljana",
-        postalCode: "1000",
-        addressCountry: "SI",
-      },
-      award: "Booking.com Traveller Review Award 2026",
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: 9.4,            // številka (ne string)
-        bestRating: 10,              // številka (ne string)
-        ratingCount: 174,            // <-- OBVEZNO: zamenjaj z dejanskim št. ocen
-      },
-    }),
-  }}
-/>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LodgingBusiness",
+              name: "Pirc Apartment",
+              url: "https://pirc-apartment.si/",
+              image: "https://pirc-apartment.si/booking-award-2026.png",
+              telephone: "+38631347049", // <- preveri
+              priceRange: "€€", // <- izberi €, €€, €€€
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Dunajska cesta 86",
+                addressLocality: "Ljubljana",
+                postalCode: "1000",
+                addressCountry: "SI",
+              },
+              award: "Booking.com Traveller Review Award 2026",
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: 9.4,
+                bestRating: 10,
+                ratingCount: 174, // <- zamenjaj z realnim številom ocen
+              },
+            }),
+          }}
+        />
       </Head>
 
       <h1>{t.homeTitle}</h1>
@@ -96,26 +109,66 @@ export default function Home() {
       </section>
 
       <h2>{t.homeBookingTitle}</h2>
-      <p>
+
+      {/* ✅ Premium CTA */}
+      <div className="ctaWrap">
         <a
           href={BOOKING_URL}
           target="_blank"
           rel="noreferrer"
-          style={{
-            display: "inline-block",
-            background: "#2f6f4e",
-            color: "white",
-            padding: "12px 18px",
-            borderRadius: "10px",
-            fontWeight: "bold",
-            textDecoration: "none",
-            marginTop: "10px",
-          }}
+          className="ctaButton"
+          aria-label={t.homeBookingBooking}
         >
-          {t.homeBookingBooking}
+          <span className="ctaIcon" aria-hidden="true">
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Townhouse body */}
+    <path
+      d="M9 21V8L12 5l3 3v13"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    
+    {/* Base line */}
+    <path
+      d="M7 21h10"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+
+    {/* Windows */}
+    <path d="M10 10h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M10 13h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+
+    {/* Door */}
+    <path
+      d="M11.5 21v-3c0-.5.4-.9.9-.9s.9.4.9.9v3"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+</span>
+
+          <span className="ctaText">
+            <span className="ctaTitle">{t.homeBookingBooking}</span>
+            <span className="ctaSub">{ctaHint}</span>
+          </span>
+          <span className="ctaArrow" aria-hidden="true">
+            →
+          </span>
         </a>
-      </p>
-      <p>{t.homeBookingDirect}</p>
+
+        <div className="ctaHint">{t.homeBookingDirect}</div>
+      </div>
     </Layout>
   );
 }

@@ -1,11 +1,14 @@
-/* ===== RESET & BASE ===== */
+/* ===========================
+   RESET & BASE
+   =========================== */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   max-width: 100%;
@@ -17,40 +20,80 @@ body {
   color: #111;
 }
 
-img, svg, video, iframe {
+img,
+svg,
+video,
+iframe {
   max-width: 100%;
   display: block;
 }
 
-/* ===== BACKGROUND DAY / NIGHT ===== */
+/* ===========================
+   BACKGROUND WITH IMAGE
+   =========================== */
+
 .background {
   min-height: 100vh;
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
 }
 
+/* overlay za boljši kontrast */
+.background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(10,10,10,0.65) 0%,
+    rgba(20,20,20,0.55) 40%,
+    rgba(15,15,15,0.70) 100%
+  );
+}
+
+.background > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* DAY */
 .background.day {
-  background-image:
-    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
-    url("https://upload.wikimedia.org/wikipedia/commons/4/4f/Ljubljana_castle_-_panoramio.jpg");
+  background-image: url("/images/ljubljana-charcoal.jpg");
 }
 
+/* NIGHT – malo temnejši overlay */
 .background.night {
-  background-image:
-    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("https://upload.wikimedia.org/wikipedia/commons/6/66/Triple_Bridge_and_Ljubljana_by_night_%2848701521446%29.jpg");
+  background-image: url("/images/ljubljana-charcoal.jpg");
 }
 
-/* ===== HEADER ===== */
-.header {
-  background: rgba(0,0,0,0.7);
-  padding: 12px 16px;
+.background.night::before {
+  background: linear-gradient(
+    180deg,
+    rgba(5,5,5,0.75) 0%,
+    rgba(10,10,10,0.70) 50%,
+    rgba(5,5,5,0.85) 100%
+  );
 }
 
-/* MOBILE FIRST layout:
+
+
+
+/* ===========================
+   HEADER (mobile-first)
    Row 1: logo left, burger right
-   Row 2: bookNow left, language right */
+   Row 2: bookNow left, languages right
+   =========================== */
+.header {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+
 .brandRow {
   display: flex;
   flex-direction: column;
@@ -86,31 +129,52 @@ img, svg, video, iframe {
   width: auto;
   filter: invert(1);
   opacity: 0.95;
+  transition: opacity 0.25s ease;
 }
 
 .brand:hover img {
   opacity: 0.85;
 }
 
-/* ===== BOOK NOW ===== */
+/* Menu button */
+.menuBtn {
+  border: 0;
+  background: rgba(255, 255, 255, 0.16);
+  color: white;
+  font-size: 22px;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Book now */
 .bookNow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   font-weight: 800;
-  padding: 10px 14px;
-  border-radius: 14px;
+  padding: 12px 16px;
+  border-radius: 16px;
   background: #2f6f4e;
   color: white;
   white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .bookNow:hover {
   background: #295f43;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
 }
 
-/* ===== LANGUAGE SWITCH ===== */
+/* Language switch */
 .langSwitch {
   display: flex;
   gap: 6px;
@@ -119,33 +183,21 @@ img, svg, video, iframe {
 
 .langSwitch button {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   color: white;
-  padding: 7px 9px;
+  padding: 8px 10px;
   font-size: 12px;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   white-space: nowrap;
-}
-
-.langSwitch button.active {
-  background: rgba(255,255,255,0.22);
   font-weight: 800;
 }
 
-/* ===== MENU BUTTON ===== */
-.menuBtn {
-  border: 0;
-  background: rgba(255,255,255,0.16);
-  color: white;
-  font-size: 22px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  cursor: pointer;
-  flex-shrink: 0;
+.langSwitch button.active {
+  background: rgba(255, 255, 255, 0.22);
 }
 
-/* ===== NAV ===== */
+/* Nav dropdown (mobile) */
 .nav {
   display: none;
   flex-direction: column;
@@ -155,6 +207,10 @@ img, svg, video, iframe {
 
 .nav.open {
   display: flex;
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.55);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
 }
 
 .nav a {
@@ -163,48 +219,59 @@ img, svg, video, iframe {
   font-weight: 800;
   padding: 10px;
   border-radius: 12px;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-/* ===== CONTENT ===== */
+/* ===========================
+   CONTENT (premium card)
+   =========================== */
 .content {
-  background: rgba(255,255,255,0.96);
-  margin: 16px;
-  padding: 20px;
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.97);
+  width: calc(100% - 28px);
+  margin: 14px auto;
+  padding: 18px;
+  border-radius: 18px;
   max-width: 980px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(6px);
 }
 
-/* ===== TYPOGRAPHY ===== */
+/* Typography */
 h1 {
-  font-size: 26px;
-  margin: 12px 0 10px;
+  font-size: 30px;
+  margin: 10px 0 10px;
+  letter-spacing: -0.3px;
   word-break: break-word;
 }
 
 h2 {
   font-size: 20px;
   margin: 20px 0 12px;
-}
-
-p, li {
-  font-size: 16px;
-  line-height: 1.6;
   word-break: break-word;
 }
 
-/* ===== DESKTOP ===== */
+p,
+li {
+  font-size: 16px;
+  line-height: 1.6;
+  word-break: break-word;
+  color: rgba(0, 0, 0, 0.78);
+}
+
+/* ===========================
+   DESKTOP
+   =========================== */
 @media (min-width: 900px) {
   .header {
     padding: 16px 22px;
   }
 
-  /* Desktop: one row like before */
+  /* Desktop: one row */
   .brandRow {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 14px;
   }
 
   .headerLeft {
@@ -217,10 +284,12 @@ p, li {
     gap: 10px;
   }
 
+  /* Hide burger on desktop */
   .menuBtn {
     display: none;
   }
 
+  /* Nav always visible on desktop */
   .nav {
     display: flex;
     flex-direction: row;
@@ -229,24 +298,33 @@ p, li {
     flex-wrap: wrap;
   }
 
+  .nav.open {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
   .nav a {
     background: transparent;
     padding: 6px 8px;
   }
 
   .content {
-    margin: 30px auto;
-    padding: 30px;
+    margin: 28px auto;
+    padding: 26px;
+    border-radius: 22px;
   }
 }
 
-/* ===== FLOAT CALL BUTTON ===== */
+/* ===========================
+   FLOAT CALL BUTTON
+   =========================== */
 .callFab {
   position: fixed;
-  right: 16px;
-  bottom: 16px;
-  width: 56px;
-  height: 56px;
+  right: 18px;
+  bottom: 18px;
+  width: 58px;
+  height: 58px;
   border-radius: 999px;
   display: flex;
   align-items: center;
@@ -255,7 +333,7 @@ p, li {
   font-size: 24px;
   background: #2f6f4e;
   color: white;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.38);
   z-index: 9999;
 }
 
@@ -265,21 +343,46 @@ p, li {
   }
 }
 
-/* ===== BOOKING AWARD ===== */
+/* Prevent FAB from covering content */
+@media (max-width: 520px) {
+  .content {
+    padding-bottom: 86px;
+  }
+
+  .bookNow {
+    padding: 10px 14px;
+    border-radius: 14px;
+  }
+
+  .langSwitch button {
+    padding: 7px 9px;
+  }
+}
+
+/* ===========================
+   BOOKING AWARD (premium)
+   =========================== */
 .awardSection {
-  margin: 24px 0;
-  padding: 20px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #f6f8f7, #ffffff);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  margin: 18px 0 16px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
 }
 
 .awardContent {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   text-align: center;
+}
+
+.awardText h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 1.25;
 }
 
 .awardText strong {
@@ -287,23 +390,32 @@ p, li {
 }
 
 .awardImage {
-  width: 150px;
+  width: min(320px, 100%);
   height: auto;
+  border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
 }
 
 @media (min-width: 900px) {
+  .awardSection {
+    padding: 20px 22px;
+  }
+
   .awardContent {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     text-align: left;
   }
 
   .awardImage {
-    width: 180px;
+    width: 260px;
   }
 }
 
-/* ===== GALLERY ===== */
+/* ===========================
+   GALLERY
+   =========================== */
 .galleryFilter {
   display: flex;
   gap: 10px;
@@ -314,8 +426,8 @@ p, li {
 .galleryFilter button {
   padding: 8px 14px;
   border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.12);
-  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.92);
   cursor: pointer;
   font-weight: 800;
 }
@@ -335,11 +447,12 @@ p, li {
 .galleryThumb {
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 14px;
-  background: rgba(0,0,0,0.04);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.04);
   cursor: pointer;
   border: none;
   padding: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
 }
 
 .galleryImage {
@@ -347,22 +460,25 @@ p, li {
   height: 100%;
   object-fit: cover;
   transition: transform 0.25s ease;
+  transform: translateZ(0);
 }
 
 .galleryThumb:hover .galleryImage {
   transform: scale(1.03);
 }
 
-/* ===== LIGHTBOX (centered on mobile, no crop) ===== */
+/* ===========================
+   LIGHTBOX (always centered, no crop)
+   =========================== */
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.92);
+  background: rgba(0, 0, 0, 0.92);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999999;
-  padding: 14px; /* so image never touches edges */
+  padding: 14px;
 }
 
 .lightboxInner {
@@ -370,12 +486,9 @@ p, li {
   width: 100%;
   max-width: 1000px;
   max-height: 95vh;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* pomembno: omogoča swipe, brez čudnega zooma */
   touch-action: pan-y;
 }
 
@@ -384,16 +497,16 @@ p, li {
   height: auto;
   max-width: 100%;
   max-height: 90vh;
-  object-fit: contain;  /* nič odrezano */
+  object-fit: contain;
   border-radius: 14px;
   user-select: none;
-  margin: 0 auto;       /* force centering */
+  margin: 0 auto;
 }
 
 .lightboxClose,
 .lightboxNav {
   position: absolute;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   color: white;
   border-radius: 999px;
@@ -405,6 +518,9 @@ p, li {
   right: -8px;
   width: 42px;
   height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .lightboxNav {
@@ -418,8 +534,12 @@ p, li {
   justify-content: center;
 }
 
-.lightboxNav.left { left: 10px; }
-.lightboxNav.right { right: 10px; }
+.lightboxNav.left {
+  left: 10px;
+}
+.lightboxNav.right {
+  right: 10px;
+}
 
 .lightboxHint {
   position: absolute;
@@ -427,8 +547,8 @@ p, li {
   left: 50%;
   transform: translateX(-50%);
   font-size: 12px;
-  color: rgba(255,255,255,0.85);
-  background: rgba(0,0,0,0.25);
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.25);
   padding: 6px 10px;
   border-radius: 999px;
 }
@@ -444,160 +564,98 @@ p, li {
     font-size: 24px;
   }
 
-  .lightboxNav.left { left: 6px; }
-  .lightboxNav.right { right: 6px; }
+  .lightboxNav.left {
+    left: 6px;
+  }
+  .lightboxNav.right {
+    right: 6px;
+  }
 }
+
 /* ===========================
-   PREMIUM POLISH (mobile-first)
-   Paste at END of globals.css
+   PREMIUM CTA (Booking button)
    =========================== */
+.ctaWrap {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-/* Better page rhythm */
-.content {
-  margin: 14px auto;
-  width: calc(100% - 28px);
-  max-width: 980px;
-  padding: 18px;
+.ctaButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-decoration: none;
+  background: #2f6f4e;
+  color: white;
+  padding: 14px 14px;
   border-radius: 18px;
-  box-shadow: 0 18px 60px rgba(0,0,0,0.18);
-  backdrop-filter: blur(6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
 }
 
-/* Typography polish */
-h1 {
-  font-size: 30px;
-  letter-spacing: -0.3px;
-  margin-top: 6px;
+.ctaButton:hover {
+  background: #295f43;
+  transform: translateY(-1px);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
 }
 
-p {
-  color: rgba(0,0,0,0.78);
+.ctaIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Header: cleaner spacing + subtle border */
-.header {
-  padding: 12px 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(8px);
+.ctaIcon svg {
+  width: 22px;
+  height: 22px;
+  stroke: white; /* ali currentColor */
 }
 
-/* Make burger look like icon button */
-.menuBtn {
-  width: 46px;
-  height: 46px;
+.ctaText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.ctaTitle {
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.ctaSub {
+  font-size: 12px;
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ctaArrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.14);
+  font-size: 20px;
+  flex: 0 0 auto;
 }
 
-/* Book now button = more premium */
-.bookNow {
-  padding: 12px 16px;
-  border-radius: 16px;
-  box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+.ctaHint {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.72);
 }
 
-/* Language buttons: smaller + consistent */
-.langSwitch button {
-  padding: 8px 10px;
-  border-radius: 12px;
-  font-weight: 800;
-}
-
-/* Mobile header layout: less bulky */
-@media (max-width: 520px) {
-  .brandRow { gap: 10px; }
-
-  .headerRight {
-    gap: 10px;
-    align-items: center;
-  }
-
-  .bookNow {
-    padding: 10px 14px;
-    border-radius: 14px;
-  }
-
-  .langSwitch button {
-    padding: 7px 9px;
-    font-size: 12px;
-  }
-}
-
-/* Award block: better proportions */
-.awardSection {
-  margin: 18px 0 16px;
-  padding: 16px;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.92);
-  box-shadow: 0 14px 40px rgba(0,0,0,0.12);
-}
-
-.awardText h2 {
-  font-size: 18px;
-  line-height: 1.25;
-  margin-bottom: 8px;
-}
-
-.awardContent {
-  gap: 12px;
-}
-
-/* Award image: make it look like a card */
-.awardImage {
-  width: min(320px, 100%);
-  border-radius: 14px;
-  box-shadow: 0 14px 40px rgba(0,0,0,0.18);
-}
-
-/* On desktop keep it balanced */
+/* Desktop: CTA naj bo malo bolj “button-like” in ne preširok */
 @media (min-width: 900px) {
-  .content {
-    padding: 26px;
-    border-radius: 22px;
+  .ctaWrap {
+    max-width: 520px;
   }
-
-  .awardSection {
-    padding: 20px 22px;
-  }
-
-  .awardImage {
-    width: 260px;
-  }
-}
-
-/* Nav dropdown: make it look like a real menu */
-.nav.open {
-  padding: 10px;
-  border-radius: 16px;
-  background: rgba(0,0,0,0.55);
-  box-shadow: 0 18px 55px rgba(0,0,0,0.35);
-}
-
-/* Call FAB: keep away from content + safe area */
-.callFab {
-  right: 18px;
-  bottom: 18px;
-  width: 58px;
-  height: 58px;
-  border-radius: 999px;
-  box-shadow: 0 18px 50px rgba(0,0,0,0.38);
-}
-
-/* Prevent FAB from covering text on smaller phones */
-@media (max-width: 520px) {
-  .content {
-    padding-bottom: 86px; /* space for call button */
-  }
-}
-
-/* Gallery thumbs look more even (if needed) */
-.galleryThumb {
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.10);
-}
-
-.galleryImage {
-  transform: translateZ(0);
 }

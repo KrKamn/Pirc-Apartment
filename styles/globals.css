@@ -39,13 +39,17 @@ iframe {
 }
 
 .background.day {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
-    url("https://upload.wikimedia.org/wikipedia/commons/4/4f/Ljubljana_castle_-_panoramio.jpg");
+  background-image:
+    radial-gradient(800px 400px at 10% 0%, rgba(47,111,78,0.40), transparent 60%),
+    radial-gradient(900px 500px at 90% 20%, rgba(255,255,255,0.25), transparent 60%),
+    linear-gradient(180deg, rgba(15,15,15,0.75), rgba(15,15,15,0.55));
 }
 
 .background.night {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-    url("https://upload.wikimedia.org/wikipedia/commons/6/66/Triple_Bridge_and_Ljubljana_by_night_%2848701521446%29.jpg");
+  background-image:
+    radial-gradient(900px 500px at 10% 0%, rgba(47,111,78,0.30), transparent 60%),
+    radial-gradient(900px 500px at 90% 20%, rgba(0,0,0,0.35), transparent 60%),
+    linear-gradient(180deg, rgba(10,10,10,0.85), rgba(10,10,10,0.70));
 }
 
 /* ===========================

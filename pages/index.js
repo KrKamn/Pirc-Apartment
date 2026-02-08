@@ -120,8 +120,44 @@ export default function Home() {
           aria-label={t.homeBookingBooking}
         >
           <span className="ctaIcon" aria-hidden="true">
-            🏨
-          </span>
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Townhouse body */}
+    <path
+      d="M9 21V8L12 5l3 3v13"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    
+    {/* Base line */}
+    <path
+      d="M7 21h10"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+
+    {/* Windows */}
+    <path d="M10 10h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M10 13h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+
+    {/* Door */}
+    <path
+      d="M11.5 21v-3c0-.5.4-.9.9-.9s.9.4.9.9v3"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+</span>
+
           <span className="ctaText">
             <span className="ctaTitle">{t.homeBookingBooking}</span>
             <span className="ctaSub">{ctaHint}</span>
